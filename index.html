@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гид по современной сексуальности — Good Point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-main: #FFFDF8;
+    --bg-soft: #F9F6ED;
+    --accent-primary: #B0BCDA;
+    --accent-primary-dark: #6E7BAE;
+    --accent-warm: #DB7246;
+    --accent-warm-dark: #B95A32;
+    --text-main: #493C41;
+    --text-soft: #7A6A70;
+    --line: rgba(73,60,65,.12);
+    --shadow: 0 2px 14px rgba(73,60,65,.08);
+    --radius-lg: 18px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--bg-main);
+    color:var(--text-main);
+    line-height:1.5;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    background:linear-gradient(180deg,var(--bg-soft) 0%, var(--bg-main) 100%);
+    padding:48px 20px 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .brand-pill{
+    display:inline-block;
+    background:var(--accent-primary);
+    color:#33395C;
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:.01em;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(1.7rem,4.5vw,2.5rem);
+    margin:0 0 10px;
+    color:var(--text-main);
+    font-weight:800;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    font-size:1.08rem;
+    color:var(--text-main);
+    opacity:.85;
+    margin:0 0 26px;
+    font-weight:500;
+  }
+  .intro-text p{margin:0 0 14px;font-size:.97rem;color:var(--text-main);opacity:.88;}
+  .intro-text h2{
+    font-size:1.15rem;
+    margin:26px 0 10px;
+    color:var(--text-main);
+  }
+  .progress-wrap{
+    margin-top:28px;
+    background:var(--bg-main);
+    border:1px solid var(--line);
+    padding:16px 20px;
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow);
+  }
+  .progress-counter{font-weight:700;margin-bottom:10px;font-size:.95rem;}
+  .progress-track{height:10px;background:var(--bg-soft);border-radius:999px;overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:var(--accent-warm);border-radius:inherit;transition:width .4s ease;}
+
+  /* ---------- Module nav ---------- */
+  .module-nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(255,253,248,.94);
+    backdrop-filter:blur(6px);
+    padding:14px 20px;
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+    border-bottom:1px solid var(--line);
+  }
+  .module-btn{
+    padding:10px 18px;
+    border-radius:999px;
+    border:2px solid var(--accent-primary);
+    background:var(--bg-main);
+    color:var(--text-main);
+    font-weight:600;
+    font-size:.9rem;
+    cursor:pointer;
+    transition:.15s;
+    font-family:inherit;
+  }
+  .module-btn.active{background:var(--accent-primary);color:#2E3452;}
+  .module-btn:not(.active){opacity:.55;}
+  .module-btn:hover{border-color:var(--accent-warm);}
+
+  /* ---------- Controls ---------- */
+  .controls-panel{
+    max-width:1100px;margin:24px auto 0;padding:0 20px;
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+  }
+  .filter-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .filter-btn{
+    padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--bg-soft);color:var(--text-main);font-size:.82rem;font-weight:600;
+    cursor:pointer;font-family:inherit;
+  }
+  .filter-btn.active{background:var(--text-main);color:var(--bg-main);border-color:var(--text-main);}
+  .action-group{display:flex;gap:10px;flex-wrap:wrap;}
+  .ghost-btn{
+    padding:8px 16px;border-radius:999px;border:1.5px solid var(--accent-warm);
+    background:transparent;color:var(--accent-warm-dark);font-weight:700;font-size:.82rem;
+    cursor:pointer;font-family:inherit;transition:.15s;
+  }
+  .ghost-btn:hover{background:var(--accent-warm);color:var(--bg-main);}
+
+  /* ---------- Sections ---------- */
+  main{max-width:1100px;margin:0 auto;padding:28px 20px 20px;}
+  .module-section{margin-bottom:44px;}
+  .module-section.hidden{display:none;}
+  .module-section h2{font-size:1.35rem;margin:0 0 4px;}
+  .section-lead{color:var(--text-soft);margin:0 0 18px;font-size:.9rem;}
+
+  details.subcategory{
+    background:var(--bg-soft);border-radius:var(--radius-lg);
+    margin-bottom:14px;padding:0 20px;overflow:hidden;
+  }
+  details.subcategory summary{
+    cursor:pointer;font-weight:700;padding:16px 0;list-style:none;
+    display:flex;align-items:center;justify-content:space-between;font-size:1.02rem;
+  }
+  details.subcategory summary::-webkit-details-marker{display:none;}
+  details.subcategory summary::after{content:'+';font-size:1.4rem;color:var(--accent-warm-dark);font-weight:400;}
+  details.subcategory[open] summary::after{content:'–';}
+  details.subcategory[open] summary{border-bottom:1px solid var(--line);margin-bottom:16px;}
+  details.subcategory .card-grid{padding-bottom:18px;}
+
+  .card-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;
+  }
+
+  .card{
+    background:var(--bg-main);border-radius:var(--radius-md);overflow:hidden;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;
+    border:2px solid transparent;transition:border-color .15s;
+  }
+  .card[data-status="planned"]{border-color:var(--accent-primary);}
+  .card[data-status="done"]{border-color:var(--accent-warm);}
+  .card-media{aspect-ratio:3/4;background:var(--bg-soft);position:relative;overflow:hidden;}
+  .card-media img{width:100%;height:100%;object-fit:cover;}
+  .card-media.img-missing{display:flex;align-items:center;justify-content:center;}
+  .card-media.img-missing::after{content:'🖼';font-size:2.2rem;opacity:.35;}
+  .card-media.img-missing img{display:none;}
+  .card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .card-title{font-weight:700;font-size:.98rem;line-height:1.3;}
+  .card-author{font-size:.78rem;color:var(--accent-warm-dark);font-weight:600;}
+  .card-desc{font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;}
+  .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;}
+  .source-link{
+    font-size:1.05rem;text-decoration:none;opacity:.65;padding:6px;line-height:1;
+  }
+  .source-link:hover{opacity:1;}
+  .status-btn{
+    display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+    border:1px solid var(--line);background:var(--bg-soft);font-size:.76rem;font-weight:600;
+    cursor:pointer;color:var(--text-main);font-family:inherit;white-space:nowrap;
+  }
+  .status-btn[data-status="planned"]{background:var(--accent-primary);border-color:var(--accent-primary);color:#2E3452;}
+  .status-btn[data-status="done"]{background:var(--accent-warm);border-color:var(--accent-warm);color:var(--bg-main);}
+
+  /* ---------- Psychologists ---------- */
+  .psych-section{max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
+  .psych-section h2{font-size:1.4rem;margin:0 0 4px;}
+  .psych-bridge{
+    background:var(--bg-soft);padding:18px 20px;border-radius:var(--radius-md);
+    line-height:1.6;margin:16px 0 26px;font-size:.92rem;
+  }
+  .psych-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  details.psych-card{
+    background:var(--bg-main);border-radius:var(--radius-lg);padding:20px 22px;
+    box-shadow:var(--shadow);border:2px solid transparent;transition:.15s;
+  }
+  details.psych-card[open]{border-color:var(--accent-primary);}
+  details.psych-card summary{
+    font-weight:700;font-size:1.02rem;cursor:pointer;list-style:none;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+  }
+  details.psych-card summary::-webkit-details-marker{display:none;}
+  details.psych-card summary::after{content:'+';font-size:1.5rem;color:var(--accent-warm-dark);flex-shrink:0;}
+  details.psych-card[open] summary::after{content:'–';}
+  details.psych-card ul{margin:14px 0;padding-left:20px;line-height:1.65;font-size:.9rem;}
+  details.psych-card .specialists{font-size:.85rem;opacity:.7;margin:14px 0;}
+  .cta-btn{
+    display:inline-block;margin-top:2px;padding:10px 22px;border-radius:999px;
+    background:var(--accent-warm);color:var(--bg-main);text-decoration:none;
+    font-weight:700;font-size:.88rem;transition:.15s;
+  }
+  .cta-btn:hover{background:var(--accent-warm-dark);}
+
+  footer{padding:34px 20px;text-align:center;font-size:.82rem;color:var(--text-soft);border-top:1px solid var(--line);}
+  footer a{color:var(--accent-warm-dark);font-weight:600;text-decoration:none;}
+  footer p{max-width:560px;margin:0 auto 10px;}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--text-main);color:var(--bg-main);padding:12px 22px;border-radius:999px;
+    font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow);z-index:50;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:720px){
+    .psych-grid{grid-template-columns:1fr;}
+    .card-grid{grid-template-columns:1fr;}
+    .controls-panel{flex-direction:column;align-items:stretch;}
+    .action-group{justify-content:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hero-inner">
+    <span class="brand-pill">Гид от психологического центра Good Point</span>
+    <h1>Гид по современной сексуальности</h1>
+    <p class="subtitle">Что читать, смотреть и слушать, если хочется лучше понять себя в сексе</p>
+    <div class="intro-text">
+      <p>Вокруг секса до сих пор много мифов, стыда и противоречивых советов. Мы собрали источники, которые считаем современными, бережными и опирающимися на научные данные. Это не исчерпывающий список, а скорее отправная точка: если хочется лучше понимать свое тело, желания, отношения и говорить о сексе без чувства вины и страха.</p>
+      <h2>Сексуальность — это процесс, который можно исследовать</h2>
+      <p>Знание о собственной сексуальности складывается из двух важных частей: информированности и личного опыта. Мы узнаем себя, когда начинаем замечать свои желания и границы, прислушиваться к своему телу, разговаривать с партнером, пробовать, ошибаться и искать то, что подходит именно нам.</p>
+      <p>Пусть этот гид станет ориентиром, который поможет найти надежные источники знаний. А дальше — самое интересное: исследовать свою сексуальность в реальной жизни, с любопытством и бережностью.</p>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-counter" id="counterText">0 из 0 изучено</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="module-nav" id="moduleNav">
+  <button class="module-btn active" data-target="books">📚 Книги</button>
+  <button class="module-btn active" data-target="podcasts">🎧 Подкасты</button>
+  <button class="module-btn active" data-target="films">🎬 Фильмы и сериалы</button>
+  <button class="module-btn active" data-target="practice">🧩 Практика</button>
+</nav>
+
+<div class="controls-panel">
+  <div class="filter-group" role="group" aria-label="Фильтр">
+    <button class="filter-btn active" data-filter="all">Показать всё</button>
+    <button class="filter-btn" data-filter="todo">Только непройденное</button>
+    <button class="filter-btn" data-filter="planned">Только избранное</button>
+  </div>
+  <div class="action-group">
+    <button id="resetBtn" class="ghost-btn">Сбросить все отметки</button>
+    <button id="copyBtn" class="ghost-btn">Скопировать список</button>
+  </div>
+</div>
+
+<main>
+  <section id="books" class="module-section">
+    <h2>📚 Книги</h2>
+    <p class="section-lead">Если хочется разобраться глубже.</p>
+
+    <details class="subcategory" open>
+      <summary>О физиологии</summary>
+      <div class="card-grid" data-group="physio"></div>
+    </details>
+
+    <details class="subcategory">
+      <summary>Об отношениях</summary>
+      <div class="card-grid" data-group="relationships"></div>
+    </details>
+
+    <details class="subcategory">
+      <summary>О культуре и социальных ожиданиях</summary>
+      <div class="card-grid" data-group="culture"></div>
+    </details>
+  </section>
+
+  <section id="podcasts" class="module-section">
+    <h2>🎧 Подкасты</h2>
+    <p class="section-lead">Если удобнее слушать по дороге или на прогулке.</p>
+    <div class="card-grid" data-group="podcasts"></div>
+  </section>
+
+  <section id="films" class="module-section">
+    <h2>🎬 Фильмы и сериалы</h2>
+    <p class="section-lead">Если лучше воспринимается через истории.</p>
+    <div class="card-grid" data-group="films"></div>
+  </section>
+
+  <section id="practice" class="module-section">
+    <h2>🧩 Практика</h2>
+    <p class="section-lead">Если готовы попробовать новое.</p>
+    <div class="card-grid" data-group="practice"></div>
+  </section>
+</main>
+
+<section class="psych-section">
+  <h2>👩‍⚕️ Психологи Good Point</h2>
+  <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
+
+  <div class="psych-grid">
+    <details class="psych-card">
+      <summary>Если сложно получать удовольствие</summary>
+      <ul>
+        <li>отсутствие желания;</li>
+        <li>сложности с возбуждением или оргазмом;</li>
+        <li>исследование собственной сексуальности;</li>
+        <li>чувство вины и стыда.</li>
+      </ul>
+      <p class="specialists">Специалисты: …</p>
+      <a class="cta-btn" href="#">Записаться</a>
+    </details>
+
+    <details class="psych-card">
+      <summary>Если секс стал причиной конфликтов в отношениях</summary>
+      <ul>
+        <li>разные сексуальные потребности;</li>
+        <li>несовпадение либидо;</li>
+        <li>сложности с разговорами о сексе;</li>
+        <li>восстановление близости после кризисов.</li>
+      </ul>
+      <p class="specialists">Специалисты: …</p>
+      <a class="cta-btn" href="#">Записаться</a>
+    </details>
+
+    <details class="psych-card">
+      <summary>Если сексуальный опыт был травматичным</summary>
+      <ul>
+        <li>последствия насилия;</li>
+        <li>страх близости;</li>
+        <li>возвращение чувства безопасности;</li>
+        <li>восстановление контакта со своим телом.</li>
+      </ul>
+      <p class="specialists">Специалисты: …</p>
+      <a class="cta-btn" href="#">Записаться</a>
+    </details>
+
+    <details class="psych-card">
+      <summary>Если после рождения ребенка сексуальная жизнь изменилась</summary>
+      <ul>
+        <li>снижение желания;</li>
+        <li>изменения восприятия своего тела;</li>
+        <li>возвращение близости в паре;</li>
+        <li>адаптация к новой роли.</li>
+      </ul>
+      <p class="specialists">Специалисты: …</p>
+      <a class="cta-btn" href="#">Записаться</a>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p>Этот гид — ориентир для самостоятельного знакомства с темой, а не замена консультации специалиста. Если какая-то тема вызывает сильный дискомфорт или хочется разобраться глубже — обратитесь к психологу.</p>
+  <a href="#">Good Point — сайт и канал</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  const DATA = {
+    books: {
+      physio: [
+        {t:"Как хочет женщина", a:"Эмили Нагоски", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Как хочет женщина.jpg"},
+        {t:"Точка наслаждения", a:"Лори Минц", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Точка наслаждения.png"},
+        {t:"Сам секс", a:"Саша Казанцева", d:"Практичная книга о коммуникации, согласии, удовольствии и том, как обсуждать секс без неловкости.", img:"Сам секс.jpg"},
+        {t:"Секс", a:"Дарья Варламова, Елена Фоер", d:"Доказательный гид по сексуальности: физиология, психология, отношения и культурные мифы.", img:"Секс.jpg"},
+        {t:"Всё о ней", a:"Ольга Крумкач", d:"Современный разговор о женском теле, сексуальности и здоровье без стыда.", img:"Все о ней.jpg"},
+        {t:"Секс — это здорово", a:"Динара Березина", d:"Книга для тех, кто хочет спокойно и без табу разобраться в теме сексуальности.", img:"Секс - это здорово.jpg"},
+        {t:"Сексуальный интеллект", a:"Марти Кляйн", d:"Помогает отказаться от идеи «нормального секса» и строить сексуальную жизнь, которая подходит именно вам.", img:"Сексуальный интеллект.jpg"}
+      ],
+      relationships: [
+        {t:"Чувство любви", a:"Сью Джонсон", d:"Как формируется эмоциональная близость и почему она влияет на сексуальную жизнь.", img:"Чувство любви.jpg"},
+        {t:"Всегда желанные", a:"Эстер Перель", d:"Почему в долгих отношениях желание меняется и как сохранить живость интимной жизни.", img:"Всегда желанные.png"},
+        {t:"Осознанная любовь", a:"Расс Харрис", d:"Как перестать бороться друг с другом и научиться строить отношения, в которых есть место и любви, и сексуальности.", img:"Осознанная любовь.jpg"},
+        {t:"Близость", a:"Наталья Фомичева", d:"О психологической стороне интимных отношений и эмоциональной близости.", img:"Близость.jpg"},
+        {t:"Неверность", a:"Марина Травкова", d:"Не столько про измены, сколько про близость, доверие и устройство отношений.", img:"Неверность.jpg"},
+        {t:"Конфликтная пара", a:"", d:"О том, как конфликты влияют на отношения и что помогает сохранять близость.", img:"Конфликтная пара.jpg"},
+        {t:"Какая такая любовь, у нас же дети", a:"", d:"О том, как сохранить отношения после появления ребенка.", img:"Какая такая любовь.jpg"}
+      ],
+      culture: [
+        {t:"Тело, еда, секс и тревога", a:"Юлия Лапина", d:"О том, как отношение к телу влияет на нашу жизнь, в том числе на сексуальность.", img:"Тело, еда, секс и тревога.jpg"},
+        {t:"Миф о красоте", a:"Наоми Вульф", d:"Почему общественные ожидания влияют на восприятие собственного тела и желание.", img:"Миф о красоте.jpg"},
+        {t:"Секс в эпоху согласия", a:"Кэтрин Энджел", d:"О современном понимании согласия, желания и сексуальной автономии.", img:"Секс в эпоху согласия.jpg"},
+        {t:"Я, ты, он, она и другие извращенцы", a:"", d:"О разнообразии сексуальности и о том, почему «нормы» часто оказываются мифом.", img:"Я, ты, он, она и другие извращенцы.jpg"}
+      ]
+    },
+    podcasts: [
+      {t:"Истории русского секса", a:"", d:"Как менялось отношение к сексуальности в России через личные истории и исследования.", img:"Истории русского секса.jpg"},
+      {t:"Раздвиньте ноги", a:"", d:"Разговоры о сексуальности, теле и отношениях без табу.", img:"Раздвиньте ноги.jpg"},
+      {t:"Психички за 30", a:"", d:"О психологии, отношениях и жизни взрослых людей.", img:"Психички за 30.jpg"},
+      {t:"Подкаст 69", a:"", d:"Про секс, коммуникацию и современную сексуальную культуру.", img:"Подкаст 69.jpg"},
+      {t:"Никакого правильно", a:"", d:"О том, почему универсальных правил в отношениях и сексуальности не существует.", img:"Никакого правильно.jpg"},
+      {t:"Справиться проще", a:"", d:"О психологическом благополучии, отношениях и эмоциональной жизни.", img:"Справиться проще.jpg"}
+    ],
+    films: [
+      {t:"Sex Education", a:"", d:"О взрослении, согласии, коммуникации, разнообразии сексуальности и отношениях.", img:"Sex education.jpg"},
+      {t:"Masters of Sex", a:"", d:"История первых исследований человеческой сексуальности и людей, которые их проводили.", img:"Masters of Sex.jpg"},
+      {t:"Love on the Spectrum", a:"", d:"Документальный сериал о том, как люди с аутизмом строят романтические и сексуальные отношения.", img:"Love on the Spectrum.jpg"},
+      {t:"Умираю как хочу секса", a:"", d:"История женщины, которая заново исследует свою сексуальность после тяжелого диагноза. О свободе, желании и поиске себя.", img:"Dying_for_Sex.jpg"}
+    ],
+    practice: [
+      {t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
+      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"Учебник Т-Ж.jpg"}
+    ]
+  };
+
+  const SECTION_LABELS = {
+    physio: "📚 Книги — о физиологии",
+    relationships: "📚 Книги — об отношениях",
+    culture: "📚 Книги — о культуре и социальных ожиданиях",
+    podcasts: "🎧 Подкасты",
+    films: "🎬 Фильмы и сериалы",
+    practice: "🧩 Практика"
+  };
+
+  const STATUS_ORDER = ["none","planned","done"];
+  const STATUS_LABEL = {none:"Не начал", planned:"В планах", done:"Пройдено"};
+  const STATUS_ICON = {none:"⚪", planned:"👁", done:"✅"};
+
+  const STORAGE_KEY = "gp-sex-guide-status-v1";
+  let state = {};
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    if(saved && typeof saved === "object") state = saved;
+  }catch(e){ state = {}; }
+
+  const ALL_ITEMS = [];
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function cardHtml(item){
+    const status = state[item.id] || "none";
+    const authorHtml = item.a ? '<div class="card-author">' + escapeHtml(item.a) + '</div>' : '';
+    return (
+      '<div class="card" data-id="' + item.id + '" data-status="' + status + '">' +
+        '<div class="card-media">' +
+          '<img src="images/' + item.img + '" alt="' + escapeHtml(item.t) + '" loading="lazy" ' +
+            'onerror="this.style.display=\'none\';this.closest(\'.card-media\').classList.add(\'img-missing\')">' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<div class="card-title">' + escapeHtml(item.t) + '</div>' +
+          authorHtml +
+          '<p class="card-desc">' + escapeHtml(item.d) + '</p>' +
+          '<div class="card-footer">' +
+            '<a class="source-link" href="#" target="_blank" rel="noopener" aria-label="Источник">🔗</a>' +
+            '<button class="status-btn" type="button" data-status="' + status + '" aria-label="Статус">' +
+              STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderGroup(groupKey, items, sectionLabel){
+    const container = document.querySelector('.card-grid[data-group="' + groupKey + '"]');
+    if(!container) return;
+    let html = "";
+    items.forEach(function(item, idx){
+      const id = groupKey + "-" + idx;
+      const full = Object.assign({id: id, section: sectionLabel}, item);
+      ALL_ITEMS.push(full);
+      html += cardHtml(full);
+    });
+    container.innerHTML = html;
+  }
+
+  function renderAll(){
+    renderGroup("physio", DATA.books.physio, SECTION_LABELS.physio);
+    renderGroup("relationships", DATA.books.relationships, SECTION_LABELS.relationships);
+    renderGroup("culture", DATA.books.culture, SECTION_LABELS.culture);
+    renderGroup("podcasts", DATA.podcasts, SECTION_LABELS.podcasts);
+    renderGroup("films", DATA.films, SECTION_LABELS.films);
+    renderGroup("practice", DATA.practice, SECTION_LABELS.practice);
+  }
+
+  function saveState(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){ /* ignore */ }
+  }
+
+  function updateCounter(){
+    const total = ALL_ITEMS.length;
+    const done = ALL_ITEMS.filter(function(it){ return state[it.id] === "done"; }).length;
+    document.getElementById("counterText").textContent = done + " из " + total + " изучено";
+    document.getElementById("progressFill").style.width = (total ? (done/total*100) : 0) + "%";
+  }
+
+  function updateCardUI(id){
+    const card = document.querySelector('.card[data-id="' + id + '"]');
+    if(!card) return;
+    const status = state[id] || "none";
+    card.setAttribute("data-status", status);
+    const btn = card.querySelector(".status-btn");
+    btn.setAttribute("data-status", status);
+    btn.innerHTML = STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>';
+  }
+
+  function cycleStatus(id){
+    const current = state[id] || "none";
+    const next = STATUS_ORDER[(STATUS_ORDER.indexOf(current) + 1) % STATUS_ORDER.length];
+    state[id] = next;
+    saveState();
+    updateCardUI(id);
+    updateCounter();
+    applyFilter();
+  }
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest(".status-btn");
+    if(!btn) return;
+    const card = btn.closest(".card");
+    if(!card) return;
+    cycleStatus(card.dataset.id);
+  });
+
+  /* ---- Module nav ---- */
+  document.getElementById("moduleNav").addEventListener("click", function(e){
+    const btn = e.target.closest(".module-btn");
+    if(!btn) return;
+    btn.classList.toggle("active");
+    const section = document.getElementById(btn.dataset.target);
+    if(section) section.classList.toggle("hidden", !btn.classList.contains("active"));
+  });
+
+  /* ---- Filter ---- */
+  let currentFilter = "all";
+  function applyFilter(){
+    document.querySelectorAll(".card").forEach(function(card){
+      const status = state[card.dataset.id] || "none";
+      let show = true;
+      if(currentFilter === "todo") show = status === "none";
+      else if(currentFilter === "planned") show = status === "planned";
+      card.style.display = show ? "" : "none";
+    });
+  }
+  document.querySelectorAll(".filter-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      applyFilter();
+    });
+  });
+
+  /* ---- Reset ---- */
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    if(!confirm("Сбросить все отметки прогресса?")) return;
+    state = {};
+    saveState();
+    ALL_ITEMS.forEach(function(it){ updateCardUI(it.id); });
+    updateCounter();
+    applyFilter();
+    showToast("Отметки сброшены");
+  });
+
+  /* ---- Copy list ---- */
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    const bySection = {};
+    ALL_ITEMS.forEach(function(it){
+      const status = state[it.id] || "none";
+      if(status === "none") return;
+      if(!bySection[it.section]) bySection[it.section] = [];
+      const label = status === "done" ? "✅" : "👁";
+      const authorPart = it.a ? " — " + it.a : "";
+      bySection[it.section].push(label + " " + it.t + authorPart);
+    });
+    const sections = Object.keys(bySection);
+    if(sections.length === 0){
+      showToast("Список пуст — отметьте что-нибудь ✅ или 👁");
+      return;
+    }
+    let text = "Мой список — Гид по современной сексуальности (Good Point)\n\n";
+    sections.forEach(function(sec){
+      text += sec + "\n";
+      bySection[sec].forEach(function(line){ text += "  " + line + "\n"; });
+      text += "\n";
+    });
+    copyToClipboard(text.trim());
+  });
+
+  function copyToClipboard(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast("Список скопирован в буфер обмена");
+      }).catch(function(){
+        fallbackCopy(text);
+      });
+    }else{
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text){
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try{
+      document.execCommand("copy");
+      showToast("Список скопирован в буфер обмена");
+    }catch(e){
+      showToast("Не удалось скопировать");
+    }
+    document.body.removeChild(ta);
+  }
+
+  let toastTimer = null;
+  function showToast(msg){
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 2400);
+  }
+
+  renderAll();
+  updateCounter();
+})();
+</script>
+
+</body>
+</html>
