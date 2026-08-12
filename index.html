@@ -113,15 +113,8 @@
   /* ---------- Controls ---------- */
   .controls-panel{
     max-width:1100px;margin:24px auto 0;padding:0 20px;
-    display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:flex-end;align-items:center;
   }
-  .filter-group{display:flex;gap:8px;flex-wrap:wrap;}
-  .filter-btn{
-    padding:8px 14px;border-radius:999px;border:1px solid var(--line);
-    background:var(--bg-soft);color:var(--text-main);font-size:.82rem;font-weight:600;
-    cursor:pointer;font-family:inherit;
-  }
-  .filter-btn.active{background:var(--text-main);color:var(--bg-main);border-color:var(--text-main);}
   .action-group{display:flex;gap:10px;flex-wrap:wrap;}
   .ghost-btn{
     padding:8px 16px;border-radius:999px;border:1.5px solid var(--accent-warm);
@@ -163,6 +156,7 @@
   .card[data-status="planned"]{border-color:var(--accent-primary);}
   .card[data-status="done"]{border-color:var(--accent-warm);}
   .card-media{aspect-ratio:3/4;background:var(--bg-soft);position:relative;overflow:hidden;}
+  .card-media.square{aspect-ratio:1/1;}
   .card-media img{width:100%;height:100%;object-fit:cover;}
   .card-media.img-missing{display:flex;align-items:center;justify-content:center;}
   .card-media.img-missing::after{content:'🖼';font-size:2.2rem;opacity:.35;}
@@ -172,17 +166,32 @@
   .card-author{font-size:.78rem;color:var(--accent-warm-dark);font-weight:600;}
   .card-desc{font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;}
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;}
+  .card-footer.no-link{justify-content:flex-end;}
   .source-link{
-    font-size:1.05rem;text-decoration:none;opacity:.65;padding:6px;line-height:1;
+    display:flex;align-items:center;gap:4px;
+    font-size:.8rem;font-weight:600;text-decoration:none;color:var(--accent-warm-dark);
+    padding:6px 4px;line-height:1;
   }
-  .source-link:hover{opacity:1;}
-  .status-btn{
-    display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
-    border:1px solid var(--line);background:var(--bg-soft);font-size:.76rem;font-weight:600;
-    cursor:pointer;color:var(--text-main);font-family:inherit;white-space:nowrap;
+  .source-link:hover{opacity:.75;}
+  .status-toggle{
+    display:flex;gap:3px;background:var(--bg-soft);border:1px solid var(--line);
+    padding:3px;border-radius:999px;flex-shrink:0;
   }
-  .status-btn[data-status="planned"]{background:var(--accent-primary);border-color:var(--accent-primary);color:#2E3452;}
-  .status-btn[data-status="done"]{background:var(--accent-warm);border-color:var(--accent-warm);color:var(--bg-main);}
+  .status-opt{
+    width:30px;height:30px;border:none;border-radius:999px;background:transparent;
+    font-size:.95rem;line-height:1;cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;opacity:.5;transition:.15s;
+  }
+  .status-opt:hover{opacity:.85;}
+  .status-opt.active{opacity:1;box-shadow:0 1px 3px rgba(73,60,65,.18);}
+  .status-opt.active[data-status="none"]{background:var(--bg-main);}
+  .status-opt.active[data-status="planned"]{background:var(--accent-primary);}
+  .status-opt.active[data-status="done"]{background:var(--accent-warm);}
+  .status-legend{
+    max-width:1100px;margin:14px auto 0;padding:0 20px;
+    display:flex;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--text-soft);
+  }
+  .status-legend span{display:inline-flex;align-items:center;gap:6px;}
 
   /* ---------- Psychologists ---------- */
   .psych-section{max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
@@ -260,16 +269,12 @@
 </nav>
 
 <div class="controls-panel">
-  <div class="filter-group" role="group" aria-label="Фильтр">
-    <button class="filter-btn active" data-filter="all">Показать всё</button>
-    <button class="filter-btn" data-filter="todo">Только непройденное</button>
-    <button class="filter-btn" data-filter="planned">Только избранное</button>
-  </div>
   <div class="action-group">
     <button id="resetBtn" class="ghost-btn">Сбросить все отметки</button>
     <button id="copyBtn" class="ghost-btn">Скопировать список</button>
   </div>
 </div>
+<p class="status-legend"><span>⚪ не начал</span><span>👁 в планах</span><span>✅ прошёл(ла)</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
 
 <main>
   <section id="books" class="module-section">
@@ -455,9 +460,11 @@
   function cardHtml(item){
     const status = state[item.id] || "none";
     const authorHtml = item.a ? '<div class="card-author">' + escapeHtml(item.a) + '</div>' : '';
+    const linkHtml = item.link ?
+      '<a class="source-link" href="#" target="_blank" rel="noopener" aria-label="Слушать подкаст">🔗 Слушать</a>' : '';
     return (
       '<div class="card" data-id="' + item.id + '" data-status="' + status + '">' +
-        '<div class="card-media">' +
+        '<div class="card-media' + (item.square ? ' square' : '') + '">' +
           '<img src="images/' + item.img + '" alt="' + escapeHtml(item.t) + '" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.closest(\'.card-media\').classList.add(\'img-missing\')">' +
         '</div>' +
@@ -465,11 +472,15 @@
           '<div class="card-title">' + escapeHtml(item.t) + '</div>' +
           authorHtml +
           '<p class="card-desc">' + escapeHtml(item.d) + '</p>' +
-          '<div class="card-footer">' +
-            '<a class="source-link" href="#" target="_blank" rel="noopener" aria-label="Источник">🔗</a>' +
-            '<button class="status-btn" type="button" data-status="' + status + '" aria-label="Статус">' +
-              STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>' +
-            '</button>' +
+          '<div class="card-footer' + (item.link ? '' : ' no-link') + '">' +
+            linkHtml +
+            '<div class="status-toggle" role="group" aria-label="Статус">' +
+              STATUS_ORDER.map(function(s){
+                return '<button type="button" class="status-opt' + (status === s ? ' active' : '') + '" ' +
+                  'data-status="' + s + '" title="' + STATUS_LABEL[s] + '" aria-label="' + STATUS_LABEL[s] + '" ' +
+                  'aria-pressed="' + (status === s) + '">' + STATUS_ICON[s] + '</button>';
+              }).join('') +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -479,10 +490,11 @@
   function renderGroup(groupKey, items, sectionLabel){
     const container = document.querySelector('.card-grid[data-group="' + groupKey + '"]');
     if(!container) return;
+    const isPodcasts = groupKey === "podcasts";
     let html = "";
     items.forEach(function(item, idx){
       const id = groupKey + "-" + idx;
-      const full = Object.assign({id: id, section: sectionLabel}, item);
+      const full = Object.assign({id: id, section: sectionLabel, link: isPodcasts, square: isPodcasts}, item);
       ALL_ITEMS.push(full);
       html += cardHtml(full);
     });
@@ -514,27 +526,26 @@
     if(!card) return;
     const status = state[id] || "none";
     card.setAttribute("data-status", status);
-    const btn = card.querySelector(".status-btn");
-    btn.setAttribute("data-status", status);
-    btn.innerHTML = STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>';
+    card.querySelectorAll(".status-opt").forEach(function(opt){
+      const isActive = opt.dataset.status === status;
+      opt.classList.toggle("active", isActive);
+      opt.setAttribute("aria-pressed", isActive);
+    });
   }
 
-  function cycleStatus(id){
-    const current = state[id] || "none";
-    const next = STATUS_ORDER[(STATUS_ORDER.indexOf(current) + 1) % STATUS_ORDER.length];
-    state[id] = next;
+  function setStatus(id, status){
+    state[id] = status;
     saveState();
     updateCardUI(id);
     updateCounter();
-    applyFilter();
   }
 
   document.addEventListener("click", function(e){
-    const btn = e.target.closest(".status-btn");
-    if(!btn) return;
-    const card = btn.closest(".card");
+    const opt = e.target.closest(".status-opt");
+    if(!opt) return;
+    const card = opt.closest(".card");
     if(!card) return;
-    cycleStatus(card.dataset.id);
+    setStatus(card.dataset.id, opt.dataset.status);
   });
 
   /* ---- Module nav ---- */
@@ -546,26 +557,6 @@
     if(section) section.classList.toggle("hidden", !btn.classList.contains("active"));
   });
 
-  /* ---- Filter ---- */
-  let currentFilter = "all";
-  function applyFilter(){
-    document.querySelectorAll(".card").forEach(function(card){
-      const status = state[card.dataset.id] || "none";
-      let show = true;
-      if(currentFilter === "todo") show = status === "none";
-      else if(currentFilter === "planned") show = status === "planned";
-      card.style.display = show ? "" : "none";
-    });
-  }
-  document.querySelectorAll(".filter-btn").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("active"); });
-      btn.classList.add("active");
-      currentFilter = btn.dataset.filter;
-      applyFilter();
-    });
-  });
-
   /* ---- Reset ---- */
   document.getElementById("resetBtn").addEventListener("click", function(){
     if(!confirm("Сбросить все отметки прогресса?")) return;
@@ -573,7 +564,6 @@
     saveState();
     ALL_ITEMS.forEach(function(it){ updateCardUI(it.id); });
     updateCounter();
-    applyFilter();
     showToast("Отметки сброшены");
   });
 
