@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Гид по современной сексуальности — Good Point</title>
+<link rel="icon" type="image/png" sizes="256x256" href="images/favicon-256.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/favicon-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +34,11 @@
   body{
     margin:0;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:linear-gradient(180deg, var(--bg-soft) 0px, var(--bg-main) 480px, var(--bg-pink-tint) 1500px, var(--bg-pink-tint) 100%);
+    background:
+      radial-gradient(640px circle at 90% 0px, rgba(230,163,176,.4), transparent 68%),
+      radial-gradient(520px circle at 2% 640px, rgba(230,163,176,.22), transparent 70%),
+      radial-gradient(560px circle at 96% 82%, rgba(230,163,176,.22), transparent 70%),
+      linear-gradient(180deg, var(--bg-soft) 0px, var(--bg-main) 480px, var(--bg-pink-tint) 1500px, var(--bg-pink-tint) 100%);
     color:var(--text-main);
     line-height:1.5;
   }
@@ -39,32 +46,11 @@
   a{color:inherit;}
   .icon{width:1.15em;height:1.15em;flex-shrink:0;vertical-align:-0.2em;}
 
-  /* ---------- Decorative blobs ---------- */
-  .blob{
-    position:absolute;pointer-events:none;filter:blur(50px);z-index:0;
-  }
-  .blob-1{
-    width:380px;height:380px;top:-160px;right:-110px;
-    background:var(--accent-pink);opacity:.32;
-    border-radius:42% 58% 65% 35% / 45% 45% 55% 55%;
-  }
-  .blob-2{
-    width:260px;height:260px;bottom:-140px;left:-90px;
-    background:var(--accent-pink);opacity:.2;
-    border-radius:60% 40% 35% 65% / 55% 60% 40% 45%;
-  }
-  .blob-3{
-    width:320px;height:320px;top:-120px;right:-120px;
-    background:var(--accent-pink);opacity:.2;
-    border-radius:55% 45% 40% 60% / 50% 55% 45% 50%;
-  }
-
   /* ---------- Header ---------- */
   .site-header{
-    position:relative;overflow:hidden;
     padding:48px 20px 32px;
   }
-  .hero-inner{max-width:var(--page-width);margin:0 auto;position:relative;z-index:1;}
+  .hero-inner{max-width:var(--page-width);margin:0 auto;}
   .brand-logo-wrap{margin-bottom:18px;}
   .brand-logo{height:36px;width:auto;display:block;}
   .brand-logo-fallback{
@@ -224,8 +210,7 @@
   .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
-  .psych-section{position:relative;overflow:hidden;max-width:var(--page-width);margin:20px auto 0;padding:20px 20px 60px;}
-  .psych-inner{position:relative;z-index:1;}
+  .psych-section{max-width:var(--page-width);margin:20px auto 0;padding:20px 20px 60px;}
   .psych-section h2{font-size:1.4rem;margin:0 0 4px;}
   .psych-bridge{
     background:var(--bg-soft);padding:18px 20px;border-radius:var(--radius-md);
@@ -312,8 +297,6 @@
 </svg>
 
 <header class="site-header">
-  <div class="blob blob-1" aria-hidden="true"></div>
-  <div class="blob blob-2" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="brand-logo-wrap" id="brandLogoWrap">
       <img class="brand-logo" src="images/лого 1.png" alt="Good Point"
@@ -393,13 +376,10 @@
 </div>
 
 <section class="psych-section">
-  <div class="blob blob-3" aria-hidden="true"></div>
-  <div class="psych-inner">
-    <h2>Психологи Good Point</h2>
-    <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
+  <h2>Психологи Good Point</h2>
+  <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
 
-    <div class="psych-grid" id="psychGrid"></div>
-  </div>
+  <div class="psych-grid" id="psychGrid"></div>
 </section>
 
 <footer>
