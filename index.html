@@ -11,9 +11,10 @@
   :root{
     --bg-main: #FFFDF8;
     --bg-soft: #F9F6ED;
-    --bg-tint: #EEF0F7;
+    --bg-pink-tint: #F7E2E1;
     --accent-primary: #B0BCDA;
     --accent-primary-dark: #6E7BAE;
+    --accent-pink: #E6A3B0;
     --accent-warm: #DB7246;
     --accent-warm-dark: #B95A32;
     --text-main: #493C41;
@@ -23,13 +24,15 @@
     --radius-lg: 18px;
     --radius-md: 14px;
     --radius-sm: 10px;
+    --page-width: 1100px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-main) 45%, var(--bg-tint) 100%);
+    background:linear-gradient(165deg, var(--bg-soft) 0%, var(--bg-main) 40%, var(--bg-pink-tint) 100%);
+    background-attachment:fixed;
     color:var(--text-main);
     line-height:1.5;
   }
@@ -43,17 +46,17 @@
   }
   .blob-1{
     width:380px;height:380px;top:-160px;right:-110px;
-    background:var(--accent-primary);opacity:.3;
+    background:var(--accent-pink);opacity:.32;
     border-radius:42% 58% 65% 35% / 45% 45% 55% 55%;
   }
   .blob-2{
     width:260px;height:260px;bottom:-140px;left:-90px;
-    background:var(--accent-warm);opacity:.16;
+    background:var(--accent-pink);opacity:.2;
     border-radius:60% 40% 35% 65% / 55% 60% 40% 45%;
   }
   .blob-3{
     width:320px;height:320px;top:-120px;right:-120px;
-    background:var(--accent-primary);opacity:.16;
+    background:var(--accent-pink);opacity:.2;
     border-radius:55% 45% 40% 60% / 50% 55% 45% 50%;
   }
 
@@ -62,7 +65,7 @@
     position:relative;overflow:hidden;
     padding:48px 20px 32px;
   }
-  .hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+  .hero-inner{max-width:var(--page-width);margin:0 auto;position:relative;z-index:1;}
   .brand-logo-wrap{margin-bottom:18px;}
   .brand-logo{height:36px;width:auto;display:block;}
   .brand-logo-fallback{
@@ -90,6 +93,7 @@
     margin:0 0 26px;
     font-weight:500;
   }
+  .intro-text{max-width:660px;}
   .intro-text p{margin:0 0 14px;font-size:.97rem;color:var(--text-main);opacity:.88;}
   .intro-text h2{
     font-size:1.15rem;
@@ -138,7 +142,7 @@
 
   /* ---------- Controls ---------- */
   .controls-panel{
-    max-width:1100px;margin:8px auto 36px;padding:28px 20px 0;
+    max-width:var(--page-width);margin:8px auto 36px;padding:28px 20px 0;
     border-top:1px solid var(--line);
     display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;
   }
@@ -151,7 +155,7 @@
   .ghost-btn:hover{background:var(--accent-warm);color:var(--bg-main);}
 
   /* ---------- Sections ---------- */
-  main{max-width:1100px;margin:0 auto;padding:28px 20px 20px;}
+  main{max-width:var(--page-width);margin:0 auto;padding:28px 20px 20px;}
   .module-section{margin-bottom:44px;}
   .module-section.hidden{display:none;}
   .module-section h2{display:flex;align-items:center;gap:9px;font-size:1.35rem;margin:0 0 4px;}
@@ -221,7 +225,7 @@
   .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
-  .psych-section{position:relative;overflow:hidden;max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
+  .psych-section{position:relative;overflow:hidden;max-width:var(--page-width);margin:20px auto 0;padding:20px 20px 60px;}
   .psych-inner{position:relative;z-index:1;}
   .psych-section h2{font-size:1.4rem;margin:0 0 4px;}
   .psych-bridge{
