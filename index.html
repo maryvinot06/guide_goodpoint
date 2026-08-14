@@ -190,10 +190,10 @@
   .status-opt.active[data-status="planned"]{background:var(--accent-primary);}
   .status-opt.active[data-status="done"]{background:var(--accent-warm);}
   .status-legend{
-    max-width:1100px;margin:14px auto 0;padding:0 20px;
-    display:flex;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--text-soft);
+    max-width:900px;margin:14px auto 0;padding:0 20px;
+    text-align:center;font-size:.82rem;color:var(--text-soft);line-height:1.6;
   }
-  .status-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
   .psych-section{max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
@@ -202,7 +202,7 @@
     background:var(--bg-soft);padding:18px 20px;border-radius:var(--radius-md);
     line-height:1.6;margin:16px 0 26px;font-size:.92rem;
   }
-  .psych-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .psych-grid{display:grid;grid-template-columns:1fr;gap:18px;}
   details.psych-card{
     background:var(--bg-main);border-radius:var(--radius-lg);padding:20px 22px;
     box-shadow:var(--shadow);border:2px solid transparent;transition:.15s;
@@ -249,7 +249,6 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
   @media (max-width:720px){
-    .psych-grid{grid-template-columns:1fr;}
     .card-grid{grid-template-columns:1fr;}
     .controls-panel{flex-direction:column;}
     .action-group{justify-content:center;}
@@ -264,7 +263,7 @@
 <header class="site-header">
   <div class="hero-inner">
     <div class="brand-logo-wrap" id="brandLogoWrap">
-      <img class="brand-logo" src="images/good-point-logo.png" alt="Good Point"
+      <img class="brand-logo" src="images/лого 1.png" alt="Good Point"
         onerror="this.style.display='none';this.parentElement.classList.add('logo-missing')">
       <span class="brand-logo-fallback">Good Point</span>
     </div>
@@ -296,7 +295,7 @@
     <button id="copyBtn" class="ghost-btn">Скопировать список</button>
   </div>
 </div>
-<p class="status-legend"><span>⚪ не начато</span><span>👁 в планах</span><span>✅ пройдено</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
+<p class="status-legend"><span class="status-item">⚪ не начато</span> · <span class="status-item">👁 в планах</span> · <span class="status-item">✅ пройдено</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
 
 <main>
   <section id="books" class="module-section">
@@ -400,7 +399,7 @@
     ],
     practice: [
       {t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
-      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"Учебник Т-Ж.jpg"}
+      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"}
     ]
   };
 
@@ -409,36 +408,36 @@
       title: "Если сложно получать удовольствие",
       bullets: ["отсутствие желания", "сложности с возбуждением или оргазмом", "исследование собственной сексуальности", "чувство вины и стыда"],
       specialists: [
-        {name:"Ксения Карпова", url:"https://good-point.ru/kseniya_karpova"},
-        {name:"Марина Попова", url:"https://good-point.ru/marina_popova"},
-        {name:"Ольга Ульянова", url:"https://good-point.ru/olga_ulyanova"}
+        {name:"Ксения Карпова", url:"https://good-point.ru/kseniya_karpova", photo:"Ксюша Карпова.jpg"},
+        {name:"Марина Попова", url:"https://good-point.ru/marina_popova", photo:"Марина Попова (Панасенко).jpg"},
+        {name:"Ольга Ульянова", url:"https://good-point.ru/olga_ulyanova", photo:"Ольга Ульянова.jpg"}
       ]
     },
     {
       title: "Если секс стал причиной конфликтов в отношениях",
       bullets: ["разные сексуальные потребности", "несовпадение либидо", "сложности с разговорами о сексе", "восстановление близости после кризисов"],
       specialists: [
-        {name:"Елена Каравашкина", url:"https://good-point.ru/elena_karavashkina"},
-        {name:"Мария Макарова", url:"https://good-point.ru/maria_makarova"},
-        {name:"Саша Сырбу", url:"https://good-point.ru/sasha_syrbu"}
+        {name:"Елена Каравашкина", url:"https://good-point.ru/elena_karavashkina", photo:"Елена Каравашкина.jpg"},
+        {name:"Мария Макарова", url:"https://good-point.ru/maria_makarova", photo:"Мария Макарова.jpg"},
+        {name:"Саша Сырбу", url:"https://good-point.ru/sasha_syrbu", photo:"Саша Сырбу.jpg"}
       ]
     },
     {
       title: "Если сексуальный опыт был травматичным",
       bullets: ["последствия насилия", "страх близости", "возвращение чувства безопасности", "восстановление контакта со своим телом"],
       specialists: [
-        {name:"Анна Скоморох", url:"https://good-point.ru/anna_skomorokh"},
-        {name:"Наталья Минеева", url:"https://good-point.ru/natalia_mineeva"},
-        {name:"Виктория Юрьева", url:"https://good-point.ru/victoria-yurieva"}
+        {name:"Анна Скоморох", url:"https://good-point.ru/anna_skomorokh", photo:"Анна Скоморох.jpg"},
+        {name:"Наталья Минеева", url:"https://good-point.ru/natalia_mineeva", photo:"Наталья Минеева.jpg"},
+        {name:"Виктория Юрьева", url:"https://good-point.ru/victoria-yurieva", photo:"Виктория Юрьева.jpg"}
       ]
     },
     {
       title: "Если после рождения ребенка сексуальная жизнь изменилась",
       bullets: ["снижение желания", "изменения восприятия своего тела", "возвращение близости в паре", "адаптация к новой роли"],
       specialists: [
-        {name:"Екатерина Вострякова", url:"https://good-point.ru/ekaterina_vostryakova"},
-        {name:"Наташа Статкевич", url:"https://good-point.ru/natasha_statkevich"},
-        {name:"Вера Качаева", url:"https://good-point.ru/vera_kachayeva"}
+        {name:"Екатерина Вострякова", url:"https://good-point.ru/ekaterina_vostryakova", photo:"Екатерина Вострякова.jpg"},
+        {name:"Наташа Статкевич", url:"https://good-point.ru/natasha_statkevich", photo:"Наташа Статкевич.jpg"},
+        {name:"Вера Качаева", url:"https://good-point.ru/vera_kachayeva", photo:"Вера Качаева.jpg"}
       ]
     }
   ];
@@ -529,12 +528,11 @@
   }
 
   function specialistHtml(sp){
-    const slug = sp.url.split("/").filter(Boolean).pop();
     const initials = getInitials(sp.name);
     return (
       '<div class="specialist-card">' +
         '<div class="specialist-avatar" data-initials="' + escapeHtml(initials) + '">' +
-          '<img src="images/specialists/' + slug + '.jpg" alt="' + escapeHtml(sp.name) + '" loading="lazy" ' +
+          '<img src="images/' + sp.photo + '" alt="' + escapeHtml(sp.name) + '" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.closest(\'.specialist-avatar\').classList.add(\'img-missing\')">' +
         '</div>' +
         '<div class="specialist-name">' + escapeHtml(sp.name) + '</div>' +
