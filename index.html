@@ -11,6 +11,7 @@
   :root{
     --bg-main: #FFFDF8;
     --bg-soft: #F9F6ED;
+    --bg-tint: #EEF0F7;
     --accent-primary: #B0BCDA;
     --accent-primary-dark: #6E7BAE;
     --accent-warm: #DB7246;
@@ -28,7 +29,7 @@
   body{
     margin:0;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-    background:var(--bg-main);
+    background:linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-main) 45%, var(--bg-tint) 100%);
     color:var(--text-main);
     line-height:1.5;
   }
@@ -37,9 +38,7 @@
 
   /* ---------- Header ---------- */
   .site-header{
-    background:linear-gradient(180deg,var(--bg-soft) 0%, var(--bg-main) 100%);
     padding:48px 20px 32px;
-    border-bottom:1px solid var(--line);
   }
   .hero-inner{max-width:760px;margin:0 auto;}
   .brand-logo-wrap{margin-bottom:18px;}
@@ -75,8 +74,19 @@
     margin:26px 0 10px;
     color:var(--text-main);
   }
+
+  /* ---------- Intro CTA + module nav ---------- */
+  .intro-cta{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:22px 24px;
+    margin-top:26px;
+  }
+  .intro-cta p{margin:0 0 18px;font-size:.95rem;color:var(--text-main);opacity:.9;}
+  .module-nav{display:flex;gap:10px;flex-wrap:wrap;}
   .progress-wrap{
-    margin-top:28px;
+    margin-top:20px;
     background:var(--bg-main);
     border:1px solid var(--line);
     padding:16px 20px;
@@ -87,15 +97,6 @@
   .progress-track{height:10px;background:var(--bg-soft);border-radius:999px;overflow:hidden;}
   .progress-fill{height:100%;width:0%;background:var(--accent-warm);border-radius:inherit;transition:width .4s ease;}
 
-  /* ---------- Module nav ---------- */
-  .module-nav{
-    position:sticky;top:0;z-index:20;
-    background:rgba(255,253,248,.94);
-    backdrop-filter:blur(6px);
-    padding:14px 20px;
-    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
-    border-bottom:1px solid var(--line);
-  }
   .module-btn{
     padding:10px 18px;
     border-radius:999px;
@@ -114,7 +115,8 @@
 
   /* ---------- Controls ---------- */
   .controls-panel{
-    max-width:1100px;margin:24px auto 0;padding:0 20px;
+    max-width:1100px;margin:8px auto 36px;padding:28px 20px 0;
+    border-top:1px solid var(--line);
     display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;
   }
   .action-group{display:flex;gap:10px;flex-wrap:wrap;}
@@ -190,7 +192,7 @@
   .status-opt.active[data-status="planned"]{background:var(--accent-primary);}
   .status-opt.active[data-status="done"]{background:var(--accent-warm);}
   .status-legend{
-    max-width:900px;margin:14px auto 0;padding:0 20px;
+    max-width:900px;margin:24px auto 0;padding:0 20px;
     text-align:center;font-size:.82rem;color:var(--text-soft);line-height:1.6;
   }
   .status-legend .status-item{white-space:nowrap;}
@@ -273,7 +275,15 @@
       <p>Вокруг секса до сих пор много мифов, стыда и противоречивых советов. Мы собрали источники, которые считаем современными, бережными и опирающимися на научные данные. Это не исчерпывающий список, а скорее отправная точка: если хочется лучше понимать свое тело, желания, отношения и говорить о сексе без чувства вины и страха.</p>
       <h2>Сексуальность — это процесс, который можно исследовать</h2>
       <p>Знание о собственной сексуальности складывается из двух важных частей: информированности и личного опыта. Мы узнаем себя, когда начинаем замечать свои желания и границы, прислушиваться к своему телу, разговаривать с партнером, пробовать, ошибаться и искать то, что подходит именно нам.</p>
+    </div>
+    <div class="intro-cta">
       <p>Пусть этот гид станет ориентиром, который поможет найти надежные источники знаний. А дальше — самое интересное: исследовать свою сексуальность в реальной жизни, с любопытством и бережностью.</p>
+      <div class="module-nav" id="moduleNav">
+        <button class="module-btn active" data-target="books">📚 Книги</button>
+        <button class="module-btn" data-target="podcasts">🎧 Подкасты</button>
+        <button class="module-btn" data-target="films">🎬 Фильмы и сериалы</button>
+        <button class="module-btn" data-target="practice">🧩 Практика</button>
+      </div>
     </div>
     <div class="progress-wrap">
       <div class="progress-counter" id="counterText">0 из 0 изучено</div>
@@ -282,19 +292,6 @@
   </div>
 </header>
 
-<nav class="module-nav" id="moduleNav">
-  <button class="module-btn active" data-target="books">📚 Книги</button>
-  <button class="module-btn active" data-target="podcasts">🎧 Подкасты</button>
-  <button class="module-btn active" data-target="films">🎬 Фильмы и сериалы</button>
-  <button class="module-btn active" data-target="practice">🧩 Практика</button>
-</nav>
-
-<div class="controls-panel">
-  <div class="action-group">
-    <button id="resetBtn" class="ghost-btn">Сбросить все отметки</button>
-    <button id="copyBtn" class="ghost-btn">Скопировать список</button>
-  </div>
-</div>
 <p class="status-legend"><span class="status-item">⚪ не начато</span> · <span class="status-item">👁 в планах</span> · <span class="status-item">✅ пройдено</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
 
 <main>
@@ -318,24 +315,31 @@
     </details>
   </section>
 
-  <section id="podcasts" class="module-section">
+  <section id="podcasts" class="module-section hidden">
     <h2>🎧 Подкасты</h2>
     <p class="section-lead">Если удобнее слушать по дороге или на прогулке.</p>
     <div class="card-grid" data-group="podcasts"></div>
   </section>
 
-  <section id="films" class="module-section">
+  <section id="films" class="module-section hidden">
     <h2>🎬 Фильмы и сериалы</h2>
     <p class="section-lead">Если лучше воспринимается через истории.</p>
     <div class="card-grid" data-group="films"></div>
   </section>
 
-  <section id="practice" class="module-section">
+  <section id="practice" class="module-section hidden">
     <h2>🧩 Практика</h2>
     <p class="section-lead">Если готовы попробовать новое.</p>
     <div class="card-grid" data-group="practice"></div>
   </section>
 </main>
+
+<div class="controls-panel">
+  <div class="action-group">
+    <button id="resetBtn" class="ghost-btn">Сбросить все отметки</button>
+    <button id="copyBtn" class="ghost-btn">Скопировать список</button>
+  </div>
+</div>
 
 <section class="psych-section">
   <h2>Психологи Good Point</h2>
