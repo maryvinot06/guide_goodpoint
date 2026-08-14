@@ -35,12 +35,34 @@
   }
   img{max-width:100%;display:block;}
   a{color:inherit;}
+  .icon{width:1.15em;height:1.15em;flex-shrink:0;vertical-align:-0.2em;}
+
+  /* ---------- Decorative blobs ---------- */
+  .blob{
+    position:absolute;pointer-events:none;filter:blur(50px);z-index:0;
+  }
+  .blob-1{
+    width:380px;height:380px;top:-160px;right:-110px;
+    background:var(--accent-primary);opacity:.3;
+    border-radius:42% 58% 65% 35% / 45% 45% 55% 55%;
+  }
+  .blob-2{
+    width:260px;height:260px;bottom:-140px;left:-90px;
+    background:var(--accent-warm);opacity:.16;
+    border-radius:60% 40% 35% 65% / 55% 60% 40% 45%;
+  }
+  .blob-3{
+    width:320px;height:320px;top:-120px;right:-120px;
+    background:var(--accent-primary);opacity:.16;
+    border-radius:55% 45% 40% 60% / 50% 55% 45% 50%;
+  }
 
   /* ---------- Header ---------- */
   .site-header{
+    position:relative;overflow:hidden;
     padding:48px 20px 32px;
   }
-  .hero-inner{max-width:760px;margin:0 auto;}
+  .hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
   .brand-logo-wrap{margin-bottom:18px;}
   .brand-logo{height:36px;width:auto;display:block;}
   .brand-logo-fallback{
@@ -98,6 +120,7 @@
   .progress-fill{height:100%;width:0%;background:var(--accent-warm);border-radius:inherit;transition:width .4s ease;}
 
   .module-btn{
+    display:inline-flex;align-items:center;gap:7px;
     padding:10px 18px;
     border-radius:999px;
     border:2px solid var(--accent-primary);
@@ -131,7 +154,7 @@
   main{max-width:1100px;margin:0 auto;padding:28px 20px 20px;}
   .module-section{margin-bottom:44px;}
   .module-section.hidden{display:none;}
-  .module-section h2{font-size:1.35rem;margin:0 0 4px;}
+  .module-section h2{display:flex;align-items:center;gap:9px;font-size:1.35rem;margin:0 0 4px;}
   .section-lead{color:var(--text-soft);margin:0 0 18px;font-size:.9rem;}
 
   details.subcategory{
@@ -198,7 +221,8 @@
   .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
-  .psych-section{max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
+  .psych-section{position:relative;overflow:hidden;max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
+  .psych-inner{position:relative;z-index:1;}
   .psych-section h2{font-size:1.4rem;margin:0 0 4px;}
   .psych-bridge{
     background:var(--bg-soft);padding:18px 20px;border-radius:var(--radius-md);
@@ -262,7 +286,31 @@
 </head>
 <body>
 
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 19.5V5.5C3 5.5 4.5 4.5 7.5 4.5C10 4.5 12 6 12 6C12 6 14 4.5 16.5 4.5C19.5 4.5 21 5.5 21 5.5V19.5C21 19.5 19.5 18.5 16.5 18.5C14 18.5 12 20 12 20C12 20 10 18.5 7.5 18.5C4.5 18.5 3 19.5 3 19.5Z"/>
+    <path d="M12 6V20"/>
+  </symbol>
+  <symbol id="icon-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 14V12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12V14"/>
+    <rect x="2.5" y="14" width="4" height="6" rx="1.5"/>
+    <rect x="17.5" y="14" width="4" height="6" rx="1.5"/>
+  </symbol>
+  <symbol id="icon-clapper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="9" width="18" height="11" rx="1.5"/>
+    <path d="M3 9L5 4H9L7 9"/>
+    <path d="M9 9L11 4H15L13 9"/>
+    <path d="M15 9L17 4H20L19 9"/>
+  </symbol>
+  <symbol id="icon-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M14.8 9.2L13 13L9.2 14.8L11 11L14.8 9.2Z"/>
+  </symbol>
+</svg>
+
 <header class="site-header">
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="brand-logo-wrap" id="brandLogoWrap">
       <img class="brand-logo" src="images/лого 1.png" alt="Good Point"
@@ -279,10 +327,10 @@
     <div class="intro-cta">
       <p>Пусть этот гид станет ориентиром, который поможет найти надежные источники знаний. А дальше — самое интересное: исследовать свою сексуальность в реальной жизни, с любопытством и бережностью.</p>
       <div class="module-nav" id="moduleNav">
-        <button class="module-btn active" data-target="books">📚 Книги</button>
-        <button class="module-btn" data-target="podcasts">🎧 Подкасты</button>
-        <button class="module-btn" data-target="films">🎬 Фильмы и сериалы</button>
-        <button class="module-btn" data-target="practice">🧩 Практика</button>
+        <button class="module-btn active" data-target="books"><svg class="icon"><use href="#icon-book"></use></svg> Книги</button>
+        <button class="module-btn" data-target="podcasts"><svg class="icon"><use href="#icon-headphones"></use></svg> Подкасты</button>
+        <button class="module-btn" data-target="films"><svg class="icon"><use href="#icon-clapper"></use></svg> Фильмы и сериалы</button>
+        <button class="module-btn" data-target="practice"><svg class="icon"><use href="#icon-compass"></use></svg> Практика</button>
       </div>
     </div>
     <div class="progress-wrap">
@@ -296,7 +344,7 @@
 
 <main>
   <section id="books" class="module-section">
-    <h2>📚 Книги</h2>
+    <h2><svg class="icon"><use href="#icon-book"></use></svg> Книги</h2>
     <p class="section-lead">Если хочется разобраться глубже.</p>
 
     <details class="subcategory" open>
@@ -316,19 +364,19 @@
   </section>
 
   <section id="podcasts" class="module-section hidden">
-    <h2>🎧 Подкасты</h2>
+    <h2><svg class="icon"><use href="#icon-headphones"></use></svg> Подкасты</h2>
     <p class="section-lead">Если удобнее слушать по дороге или на прогулке.</p>
     <div class="card-grid" data-group="podcasts"></div>
   </section>
 
   <section id="films" class="module-section hidden">
-    <h2>🎬 Фильмы и сериалы</h2>
+    <h2><svg class="icon"><use href="#icon-clapper"></use></svg> Фильмы и сериалы</h2>
     <p class="section-lead">Если лучше воспринимается через истории.</p>
     <div class="card-grid" data-group="films"></div>
   </section>
 
   <section id="practice" class="module-section hidden">
-    <h2>🧩 Практика</h2>
+    <h2><svg class="icon"><use href="#icon-compass"></use></svg> Практика</h2>
     <p class="section-lead">Если готовы попробовать новое.</p>
     <div class="card-grid" data-group="practice"></div>
   </section>
@@ -342,10 +390,13 @@
 </div>
 
 <section class="psych-section">
-  <h2>Психологи Good Point</h2>
-  <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
+  <div class="blob blob-3" aria-hidden="true"></div>
+  <div class="psych-inner">
+    <h2>Психологи Good Point</h2>
+    <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
 
-  <div class="psych-grid" id="psychGrid"></div>
+    <div class="psych-grid" id="psychGrid"></div>
+  </div>
 </section>
 
 <footer>
