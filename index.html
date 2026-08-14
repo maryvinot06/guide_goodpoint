@@ -42,17 +42,19 @@
     border-bottom:1px solid var(--line);
   }
   .hero-inner{max-width:760px;margin:0 auto;}
-  .brand-pill{
-    display:inline-block;
+  .brand-logo-wrap{margin-bottom:18px;}
+  .brand-logo{height:36px;width:auto;display:block;}
+  .brand-logo-fallback{
+    display:none;
     background:var(--accent-primary);
     color:#33395C;
     padding:6px 16px;
     border-radius:999px;
     font-size:.8rem;
-    font-weight:700;
-    letter-spacing:.01em;
-    margin-bottom:18px;
+    font-weight:800;
+    letter-spacing:.02em;
   }
+  .brand-logo-wrap.logo-missing .brand-logo-fallback{display:inline-block;}
   h1{
     font-size:clamp(1.7rem,4.5vw,2.5rem);
     margin:0 0 10px;
@@ -113,15 +115,8 @@
   /* ---------- Controls ---------- */
   .controls-panel{
     max-width:1100px;margin:24px auto 0;padding:0 20px;
-    display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;
   }
-  .filter-group{display:flex;gap:8px;flex-wrap:wrap;}
-  .filter-btn{
-    padding:8px 14px;border-radius:999px;border:1px solid var(--line);
-    background:var(--bg-soft);color:var(--text-main);font-size:.82rem;font-weight:600;
-    cursor:pointer;font-family:inherit;
-  }
-  .filter-btn.active{background:var(--text-main);color:var(--bg-main);border-color:var(--text-main);}
   .action-group{display:flex;gap:10px;flex-wrap:wrap;}
   .ghost-btn{
     padding:8px 16px;border-radius:999px;border:1.5px solid var(--accent-warm);
@@ -163,6 +158,7 @@
   .card[data-status="planned"]{border-color:var(--accent-primary);}
   .card[data-status="done"]{border-color:var(--accent-warm);}
   .card-media{aspect-ratio:3/4;background:var(--bg-soft);position:relative;overflow:hidden;}
+  .card-media.square{aspect-ratio:1/1;}
   .card-media img{width:100%;height:100%;object-fit:cover;}
   .card-media.img-missing{display:flex;align-items:center;justify-content:center;}
   .card-media.img-missing::after{content:'🖼';font-size:2.2rem;opacity:.35;}
@@ -172,17 +168,32 @@
   .card-author{font-size:.78rem;color:var(--accent-warm-dark);font-weight:600;}
   .card-desc{font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;}
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;}
+  .card-footer.no-link{justify-content:flex-end;}
   .source-link{
-    font-size:1.05rem;text-decoration:none;opacity:.65;padding:6px;line-height:1;
+    display:flex;align-items:center;gap:4px;
+    font-size:.8rem;font-weight:600;text-decoration:none;color:var(--accent-warm-dark);
+    padding:6px 4px;line-height:1;
   }
-  .source-link:hover{opacity:1;}
-  .status-btn{
-    display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
-    border:1px solid var(--line);background:var(--bg-soft);font-size:.76rem;font-weight:600;
-    cursor:pointer;color:var(--text-main);font-family:inherit;white-space:nowrap;
+  .source-link:hover{opacity:.75;}
+  .status-toggle{
+    display:flex;gap:3px;background:var(--bg-soft);border:1px solid var(--line);
+    padding:3px;border-radius:999px;flex-shrink:0;
   }
-  .status-btn[data-status="planned"]{background:var(--accent-primary);border-color:var(--accent-primary);color:#2E3452;}
-  .status-btn[data-status="done"]{background:var(--accent-warm);border-color:var(--accent-warm);color:var(--bg-main);}
+  .status-opt{
+    width:30px;height:30px;border:none;border-radius:999px;background:transparent;
+    font-size:.95rem;line-height:1;cursor:pointer;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;opacity:.5;transition:.15s;
+  }
+  .status-opt:hover{opacity:.85;}
+  .status-opt.active{opacity:1;box-shadow:0 1px 3px rgba(73,60,65,.18);}
+  .status-opt.active[data-status="none"]{background:var(--bg-main);}
+  .status-opt.active[data-status="planned"]{background:var(--accent-primary);}
+  .status-opt.active[data-status="done"]{background:var(--accent-warm);}
+  .status-legend{
+    max-width:1100px;margin:14px auto 0;padding:0 20px;
+    display:flex;gap:18px;flex-wrap:wrap;font-size:.82rem;color:var(--text-soft);
+  }
+  .status-legend span{display:inline-flex;align-items:center;gap:6px;}
 
   /* ---------- Psychologists ---------- */
   .psych-section{max-width:1100px;margin:20px auto 0;padding:20px 20px 60px;}
@@ -205,13 +216,26 @@
   details.psych-card summary::after{content:'+';font-size:1.5rem;color:var(--accent-warm-dark);flex-shrink:0;}
   details.psych-card[open] summary::after{content:'–';}
   details.psych-card ul{margin:14px 0;padding-left:20px;line-height:1.65;font-size:.9rem;}
-  details.psych-card .specialists{font-size:.85rem;opacity:.7;margin:14px 0;}
-  .cta-btn{
-    display:inline-block;margin-top:2px;padding:10px 22px;border-radius:999px;
-    background:var(--accent-warm);color:var(--bg-main);text-decoration:none;
-    font-weight:700;font-size:.88rem;transition:.15s;
+  .specialists-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-soft);margin:18px 0 10px;}
+  .specialist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .specialist-card{
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;
+    background:var(--bg-soft);border-radius:var(--radius-sm);padding:14px 8px;
   }
-  .cta-btn:hover{background:var(--accent-warm-dark);}
+  .specialist-avatar{
+    width:60px;height:60px;border-radius:50%;overflow:hidden;background:var(--accent-primary);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .specialist-avatar img{width:100%;height:100%;object-fit:cover;}
+  .specialist-avatar.img-missing img{display:none;}
+  .specialist-avatar.img-missing::after{content:attr(data-initials);color:#2E3452;font-weight:700;font-size:1.05rem;}
+  .specialist-name{font-size:.82rem;font-weight:600;line-height:1.3;}
+  .specialist-cta{
+    display:inline-block;font-size:.76rem;font-weight:700;color:var(--accent-warm-dark);
+    text-decoration:none;padding:5px 14px;border:1.5px solid var(--accent-warm);border-radius:999px;
+    transition:.15s;
+  }
+  .specialist-cta:hover{background:var(--accent-warm);color:var(--bg-main);}
 
   footer{padding:34px 20px;text-align:center;font-size:.82rem;color:var(--text-soft);border-top:1px solid var(--line);}
   footer a{color:var(--accent-warm-dark);font-weight:600;text-decoration:none;}
@@ -227,8 +251,11 @@
   @media (max-width:720px){
     .psych-grid{grid-template-columns:1fr;}
     .card-grid{grid-template-columns:1fr;}
-    .controls-panel{flex-direction:column;align-items:stretch;}
-    .action-group{justify-content:flex-start;}
+    .controls-panel{flex-direction:column;}
+    .action-group{justify-content:center;}
+  }
+  @media (max-width:480px){
+    .specialist-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -236,7 +263,11 @@
 
 <header class="site-header">
   <div class="hero-inner">
-    <span class="brand-pill">Гид от психологического центра Good Point</span>
+    <div class="brand-logo-wrap" id="brandLogoWrap">
+      <img class="brand-logo" src="images/good-point-logo.png" alt="Good Point"
+        onerror="this.style.display='none';this.parentElement.classList.add('logo-missing')">
+      <span class="brand-logo-fallback">Good Point</span>
+    </div>
     <h1>Гид по современной сексуальности</h1>
     <p class="subtitle">Что читать, смотреть и слушать, если хочется лучше понять себя в сексе</p>
     <div class="intro-text">
@@ -260,16 +291,12 @@
 </nav>
 
 <div class="controls-panel">
-  <div class="filter-group" role="group" aria-label="Фильтр">
-    <button class="filter-btn active" data-filter="all">Показать всё</button>
-    <button class="filter-btn" data-filter="todo">Только непройденное</button>
-    <button class="filter-btn" data-filter="planned">Только избранное</button>
-  </div>
   <div class="action-group">
     <button id="resetBtn" class="ghost-btn">Сбросить все отметки</button>
     <button id="copyBtn" class="ghost-btn">Скопировать список</button>
   </div>
 </div>
+<p class="status-legend"><span>⚪ не начато</span><span>👁 в планах</span><span>✅ пройдено</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
 
 <main>
   <section id="books" class="module-section">
@@ -312,63 +339,17 @@
 </main>
 
 <section class="psych-section">
-  <h2>👩‍⚕️ Психологи Good Point</h2>
+  <h2>Психологи Good Point</h2>
   <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
 
-  <div class="psych-grid">
-    <details class="psych-card">
-      <summary>Если сложно получать удовольствие</summary>
-      <ul>
-        <li>отсутствие желания;</li>
-        <li>сложности с возбуждением или оргазмом;</li>
-        <li>исследование собственной сексуальности;</li>
-        <li>чувство вины и стыда.</li>
-      </ul>
-      <p class="specialists">Специалисты: …</p>
-      <a class="cta-btn" href="#">Записаться</a>
-    </details>
-
-    <details class="psych-card">
-      <summary>Если секс стал причиной конфликтов в отношениях</summary>
-      <ul>
-        <li>разные сексуальные потребности;</li>
-        <li>несовпадение либидо;</li>
-        <li>сложности с разговорами о сексе;</li>
-        <li>восстановление близости после кризисов.</li>
-      </ul>
-      <p class="specialists">Специалисты: …</p>
-      <a class="cta-btn" href="#">Записаться</a>
-    </details>
-
-    <details class="psych-card">
-      <summary>Если сексуальный опыт был травматичным</summary>
-      <ul>
-        <li>последствия насилия;</li>
-        <li>страх близости;</li>
-        <li>возвращение чувства безопасности;</li>
-        <li>восстановление контакта со своим телом.</li>
-      </ul>
-      <p class="specialists">Специалисты: …</p>
-      <a class="cta-btn" href="#">Записаться</a>
-    </details>
-
-    <details class="psych-card">
-      <summary>Если после рождения ребенка сексуальная жизнь изменилась</summary>
-      <ul>
-        <li>снижение желания;</li>
-        <li>изменения восприятия своего тела;</li>
-        <li>возвращение близости в паре;</li>
-        <li>адаптация к новой роли.</li>
-      </ul>
-      <p class="specialists">Специалисты: …</p>
-      <a class="cta-btn" href="#">Записаться</a>
-    </details>
-  </div>
+  <div class="psych-grid" id="psychGrid"></div>
 </section>
 
 <footer>
   <p>Этот гид — ориентир для самостоятельного знакомства с темой, а не замена консультации специалиста. Если какая-то тема вызывает сильный дискомфорт или хочется разобраться глубже — обратитесь к психологу.</p>
-  <a href="#">Good Point — сайт и канал</a>
+  <a href="https://good-point.ru/" target="_blank" rel="noopener">good-point.ru</a>
+  &nbsp;·&nbsp;
+  <a href="https://t.me/good_point_21" target="_blank" rel="noopener">Telegram-канал</a>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -382,7 +363,6 @@
       physio: [
         {t:"Как хочет женщина", a:"Эмили Нагоски", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Как хочет женщина.jpg"},
         {t:"Точка наслаждения", a:"Лори Минц", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Точка наслаждения.png"},
-        {t:"Сам секс", a:"Саша Казанцева", d:"Практичная книга о коммуникации, согласии, удовольствии и том, как обсуждать секс без неловкости.", img:"Сам секс.jpg"},
         {t:"Секс", a:"Дарья Варламова, Елена Фоер", d:"Доказательный гид по сексуальности: физиология, психология, отношения и культурные мифы.", img:"Секс.jpg"},
         {t:"Всё о ней", a:"Ольга Крумкач", d:"Современный разговор о женском теле, сексуальности и здоровье без стыда.", img:"Все о ней.jpg"},
         {t:"Секс — это здорово", a:"Динара Березина", d:"Книга для тех, кто хочет спокойно и без табу разобраться в теме сексуальности.", img:"Секс - это здорово.jpg"},
@@ -405,12 +385,12 @@
       ]
     },
     podcasts: [
-      {t:"Истории русского секса", a:"", d:"Как менялось отношение к сексуальности в России через личные истории и исследования.", img:"Истории русского секса.jpg"},
-      {t:"Раздвиньте ноги", a:"", d:"Разговоры о сексуальности, теле и отношениях без табу.", img:"Раздвиньте ноги.jpg"},
-      {t:"Психички за 30", a:"", d:"О психологии, отношениях и жизни взрослых людей.", img:"Психички за 30.jpg"},
-      {t:"Подкаст 69", a:"", d:"Про секс, коммуникацию и современную сексуальную культуру.", img:"Подкаст 69.jpg"},
-      {t:"Никакого правильно", a:"", d:"О том, почему универсальных правил в отношениях и сексуальности не существует.", img:"Никакого правильно.jpg"},
-      {t:"Справиться проще", a:"", d:"О психологическом благополучии, отношениях и эмоциональной жизни.", img:"Справиться проще.jpg"}
+      {t:"Истории русского секса", a:"", d:"Как менялось отношение к сексуальности в России через личные истории и исследования.", img:"Истории русского секса.jpg", url:"https://podcast.ru/1484494873"},
+      {t:"Раздвиньте ноги", a:"", d:"Разговоры о сексуальности, теле и отношениях без табу.", img:"Раздвиньте ноги.jpg", url:"https://podcast.ru/1546452454"},
+      {t:"Психички за 30", a:"", d:"О психологии, отношениях и жизни взрослых людей.", img:"Психички за 30.jpg", url:"https://podcast.ru/1745078368"},
+      {t:"Подкаст 69", a:"", d:"Про секс, коммуникацию и современную сексуальную культуру.", img:"Подкаст 69.jpg", url:"http://podcast.ru/1523549843"},
+      {t:"Никакого правильно", a:"", d:"О том, почему универсальных правил в отношениях и сексуальности не существует.", img:"Никакого правильно.jpg", url:"http://podcast.ru/1488479498"},
+      {t:"Справиться проще", a:"", d:"О психологическом благополучии, отношениях и эмоциональной жизни.", img:"Справиться проще.jpg", url:"https://podcast.ru/1592331113"}
     ],
     films: [
       {t:"Sex Education", a:"", d:"О взрослении, согласии, коммуникации, разнообразии сексуальности и отношениях.", img:"Sex education.jpg"},
@@ -424,6 +404,45 @@
     ]
   };
 
+  const PSYCH_DATA = [
+    {
+      title: "Если сложно получать удовольствие",
+      bullets: ["отсутствие желания", "сложности с возбуждением или оргазмом", "исследование собственной сексуальности", "чувство вины и стыда"],
+      specialists: [
+        {name:"Ксения Карпова", url:"https://good-point.ru/kseniya_karpova"},
+        {name:"Марина Попова", url:"https://good-point.ru/marina_popova"},
+        {name:"Ольга Ульянова", url:"https://good-point.ru/olga_ulyanova"}
+      ]
+    },
+    {
+      title: "Если секс стал причиной конфликтов в отношениях",
+      bullets: ["разные сексуальные потребности", "несовпадение либидо", "сложности с разговорами о сексе", "восстановление близости после кризисов"],
+      specialists: [
+        {name:"Елена Каравашкина", url:"https://good-point.ru/elena_karavashkina"},
+        {name:"Мария Макарова", url:"https://good-point.ru/maria_makarova"},
+        {name:"Саша Сырбу", url:"https://good-point.ru/sasha_syrbu"}
+      ]
+    },
+    {
+      title: "Если сексуальный опыт был травматичным",
+      bullets: ["последствия насилия", "страх близости", "возвращение чувства безопасности", "восстановление контакта со своим телом"],
+      specialists: [
+        {name:"Анна Скоморох", url:"https://good-point.ru/anna_skomorokh"},
+        {name:"Наталья Минеева", url:"https://good-point.ru/natalia_mineeva"},
+        {name:"Виктория Юрьева", url:"https://good-point.ru/victoria-yurieva"}
+      ]
+    },
+    {
+      title: "Если после рождения ребенка сексуальная жизнь изменилась",
+      bullets: ["снижение желания", "изменения восприятия своего тела", "возвращение близости в паре", "адаптация к новой роли"],
+      specialists: [
+        {name:"Екатерина Вострякова", url:"https://good-point.ru/ekaterina_vostryakova"},
+        {name:"Наташа Статкевич", url:"https://good-point.ru/natasha_statkevich"},
+        {name:"Вера Качаева", url:"https://good-point.ru/vera_kachayeva"}
+      ]
+    }
+  ];
+
   const SECTION_LABELS = {
     physio: "📚 Книги — о физиологии",
     relationships: "📚 Книги — об отношениях",
@@ -434,7 +453,7 @@
   };
 
   const STATUS_ORDER = ["none","planned","done"];
-  const STATUS_LABEL = {none:"Не начал", planned:"В планах", done:"Пройдено"};
+  const STATUS_LABEL = {none:"Не начато", planned:"В планах", done:"Пройдено"};
   const STATUS_ICON = {none:"⚪", planned:"👁", done:"✅"};
 
   const STORAGE_KEY = "gp-sex-guide-status-v1";
@@ -455,9 +474,11 @@
   function cardHtml(item){
     const status = state[item.id] || "none";
     const authorHtml = item.a ? '<div class="card-author">' + escapeHtml(item.a) + '</div>' : '';
+    const linkHtml = item.showLink ?
+      '<a class="source-link" href="' + escapeHtml(item.url || "#") + '" target="_blank" rel="noopener" aria-label="Слушать подкаст">🔗 Слушать</a>' : '';
     return (
       '<div class="card" data-id="' + item.id + '" data-status="' + status + '">' +
-        '<div class="card-media">' +
+        '<div class="card-media' + (item.square ? ' square' : '') + '">' +
           '<img src="images/' + item.img + '" alt="' + escapeHtml(item.t) + '" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.closest(\'.card-media\').classList.add(\'img-missing\')">' +
         '</div>' +
@@ -465,11 +486,15 @@
           '<div class="card-title">' + escapeHtml(item.t) + '</div>' +
           authorHtml +
           '<p class="card-desc">' + escapeHtml(item.d) + '</p>' +
-          '<div class="card-footer">' +
-            '<a class="source-link" href="#" target="_blank" rel="noopener" aria-label="Источник">🔗</a>' +
-            '<button class="status-btn" type="button" data-status="' + status + '" aria-label="Статус">' +
-              STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>' +
-            '</button>' +
+          '<div class="card-footer' + (item.showLink ? '' : ' no-link') + '">' +
+            linkHtml +
+            '<div class="status-toggle" role="group" aria-label="Статус">' +
+              STATUS_ORDER.map(function(s){
+                return '<button type="button" class="status-opt' + (status === s ? ' active' : '') + '" ' +
+                  'data-status="' + s + '" title="' + STATUS_LABEL[s] + '" aria-label="' + STATUS_LABEL[s] + '" ' +
+                  'aria-pressed="' + (status === s) + '">' + STATUS_ICON[s] + '</button>';
+              }).join('') +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>'
@@ -479,10 +504,11 @@
   function renderGroup(groupKey, items, sectionLabel){
     const container = document.querySelector('.card-grid[data-group="' + groupKey + '"]');
     if(!container) return;
+    const isPodcasts = groupKey === "podcasts";
     let html = "";
     items.forEach(function(item, idx){
       const id = groupKey + "-" + idx;
-      const full = Object.assign({id: id, section: sectionLabel}, item);
+      const full = Object.assign({id: id, section: sectionLabel, showLink: isPodcasts, square: isPodcasts}, item);
       ALL_ITEMS.push(full);
       html += cardHtml(full);
     });
@@ -496,6 +522,42 @@
     renderGroup("podcasts", DATA.podcasts, SECTION_LABELS.podcasts);
     renderGroup("films", DATA.films, SECTION_LABELS.films);
     renderGroup("practice", DATA.practice, SECTION_LABELS.practice);
+  }
+
+  function getInitials(name){
+    return name.trim().split(/\s+/).map(function(w){ return w.charAt(0).toUpperCase(); }).slice(0, 2).join("");
+  }
+
+  function specialistHtml(sp){
+    const slug = sp.url.split("/").filter(Boolean).pop();
+    const initials = getInitials(sp.name);
+    return (
+      '<div class="specialist-card">' +
+        '<div class="specialist-avatar" data-initials="' + escapeHtml(initials) + '">' +
+          '<img src="images/specialists/' + slug + '.jpg" alt="' + escapeHtml(sp.name) + '" loading="lazy" ' +
+            'onerror="this.style.display=\'none\';this.closest(\'.specialist-avatar\').classList.add(\'img-missing\')">' +
+        '</div>' +
+        '<div class="specialist-name">' + escapeHtml(sp.name) + '</div>' +
+        '<a class="specialist-cta" href="' + escapeHtml(sp.url) + '" target="_blank" rel="noopener">Записаться</a>' +
+      '</div>'
+    );
+  }
+
+  function psychCardHtml(cat){
+    return (
+      '<details class="psych-card">' +
+        '<summary>' + escapeHtml(cat.title) + '</summary>' +
+        '<ul>' + cat.bullets.map(function(b){ return '<li>' + escapeHtml(b) + ';</li>'; }).join('') + '</ul>' +
+        '<p class="specialists-label">Специалисты</p>' +
+        '<div class="specialist-grid">' + cat.specialists.map(specialistHtml).join('') + '</div>' +
+      '</details>'
+    );
+  }
+
+  function renderPsych(){
+    const container = document.getElementById("psychGrid");
+    if(!container) return;
+    container.innerHTML = PSYCH_DATA.map(psychCardHtml).join('');
   }
 
   function saveState(){
@@ -514,27 +576,26 @@
     if(!card) return;
     const status = state[id] || "none";
     card.setAttribute("data-status", status);
-    const btn = card.querySelector(".status-btn");
-    btn.setAttribute("data-status", status);
-    btn.innerHTML = STATUS_ICON[status] + ' <span class="status-label">' + STATUS_LABEL[status] + '</span>';
+    card.querySelectorAll(".status-opt").forEach(function(opt){
+      const isActive = opt.dataset.status === status;
+      opt.classList.toggle("active", isActive);
+      opt.setAttribute("aria-pressed", isActive);
+    });
   }
 
-  function cycleStatus(id){
-    const current = state[id] || "none";
-    const next = STATUS_ORDER[(STATUS_ORDER.indexOf(current) + 1) % STATUS_ORDER.length];
-    state[id] = next;
+  function setStatus(id, status){
+    state[id] = status;
     saveState();
     updateCardUI(id);
     updateCounter();
-    applyFilter();
   }
 
   document.addEventListener("click", function(e){
-    const btn = e.target.closest(".status-btn");
-    if(!btn) return;
-    const card = btn.closest(".card");
+    const opt = e.target.closest(".status-opt");
+    if(!opt) return;
+    const card = opt.closest(".card");
     if(!card) return;
-    cycleStatus(card.dataset.id);
+    setStatus(card.dataset.id, opt.dataset.status);
   });
 
   /* ---- Module nav ---- */
@@ -546,26 +607,6 @@
     if(section) section.classList.toggle("hidden", !btn.classList.contains("active"));
   });
 
-  /* ---- Filter ---- */
-  let currentFilter = "all";
-  function applyFilter(){
-    document.querySelectorAll(".card").forEach(function(card){
-      const status = state[card.dataset.id] || "none";
-      let show = true;
-      if(currentFilter === "todo") show = status === "none";
-      else if(currentFilter === "planned") show = status === "planned";
-      card.style.display = show ? "" : "none";
-    });
-  }
-  document.querySelectorAll(".filter-btn").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("active"); });
-      btn.classList.add("active");
-      currentFilter = btn.dataset.filter;
-      applyFilter();
-    });
-  });
-
   /* ---- Reset ---- */
   document.getElementById("resetBtn").addEventListener("click", function(){
     if(!confirm("Сбросить все отметки прогресса?")) return;
@@ -573,7 +614,6 @@
     saveState();
     ALL_ITEMS.forEach(function(it){ updateCardUI(it.id); });
     updateCounter();
-    applyFilter();
     showToast("Отметки сброшены");
   });
 
@@ -640,6 +680,7 @@
   }
 
   renderAll();
+  renderPsych();
   updateCounter();
 })();
 </script>
