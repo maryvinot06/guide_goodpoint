@@ -197,6 +197,12 @@
     font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;
     display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;
   }
+  .card-desc.expanded{display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible;}
+  .desc-toggle{
+    align-self:flex-start;background:none;border:none;padding:0;margin-top:-2px;
+    font-size:.78rem;font-weight:700;color:var(--accent-warm-dark);cursor:pointer;
+    font-family:inherit;text-decoration:underline;text-underline-offset:2px;
+  }
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;}
   .card-footer.no-link{justify-content:flex-end;}
   .source-link{
@@ -229,7 +235,7 @@
   .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
-  .psych-section{max-width:var(--page-width);margin-top:var(--gap-section);padding:0 20px;}
+  .psych-section{max-width:var(--page-width);margin:var(--gap-section) auto 0;padding:0 20px;}
   .psych-bridge{
     background:var(--bg-main);padding:18px 20px;border-radius:var(--radius-md);
     line-height:1.6;margin:16px 0 26px;font-size:.92rem;
@@ -404,7 +410,7 @@
     <h2><svg class="icon"><use href="#icon-book"></use></svg> Книги</h2>
     <p class="section-lead">Если хочется разобраться глубже.</p>
 
-    <details class="subcategory" open>
+    <details class="subcategory">
       <summary>О физиологии</summary>
       <div class="card-grid" data-group="physio"></div>
     </details>
@@ -539,9 +545,9 @@
       {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"}
     ],
     tests: [
-      {t:"Индекс женской сексуальной функции (FSFI)", a:"", d:"Оценивает сексуальную функцию у женщин по 6 областям: влечение, возбуждение, лубрикация, оргазм, удовлетворённость и боль. Помогает увидеть, в какой области есть трудности, связанные с сексуальным здоровьем, и понять, какая поддержка может помочь.", img:"FSFI.jpg", url:"https://psytests.org/diag/fsfi-run.html"},
+      {t:"Индекс женской сексуальной функции (FSFI)", a:"", d:"Оценивает сексуальную функцию у женщин по 6 областям: влечение, возбуждение, лубрикация, оргазм, удовлетворённость и боль. Помогает увидеть, в какой области есть трудности, связанные с сексуальным здоровьем, и понять, какая поддержка может помочь.", img:"Индекс женской сексуальной функции.jpg", url:"https://psytests.org/diag/fsfi-run.html"},
       {t:"Опросник сексуального темперамента", a:"Эмили Нагоски", d:"Тест Эмили Нагоски анализирует сексуальный темперамент по модели двойного контроля, описывающей сексуальную реакцию как комбинацию двух систем: подавления и возбуждения.", img:"Опросник сексуального темперамента.jpg", url:"https://psytests.org/quiz/stq-run.html"},
-      {t:"Опросник сексуальной удовлетворенности Берг-Кросс", a:"", d:"Помогает парам проанализировать уровень удовлетворенности в различных областях и определить свою сексуальность.", img:"Берг-Кросс.jpg", url:"https://psytests.org/family/sxbc.html"}
+      {t:"Опросник сексуальной удовлетворенности Берг-Кросс", a:"", d:"Помогает парам проанализировать уровень удовлетворенности в различных областях и определить свою сексуальность.", img:"Опросник сексуальной удовлетворенности Берг-Кросс.jpg", url:"https://psytests.org/family/sxbc.html"}
     ]
   };
 
@@ -758,7 +764,12 @@
     btn.classList.toggle("active");
     const section = document.getElementById(btn.dataset.target);
     if(section) section.classList.toggle("hidden", !btn.classList.contains("active"));
+    setupDescToggles();
   });
+
+  document.addEventListener("toggle", function(e){
+    if(e.target.matches && e.target.matches("details.subcategory")) setupDescToggles();
+  }, true);
 
   /* ---- Reset ---- */
   document.getElementById("resetBtn").addEventListener("click", function(){
@@ -832,9 +843,38 @@
     toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 2400);
   }
 
+  function setupDescToggles(){
+    document.querySelectorAll(".card-desc").forEach(function(desc){
+      if(desc.classList.contains("expanded")) return;
+      const next = desc.nextElementSibling;
+      const existingBtn = next && next.classList.contains("desc-toggle") ? next : null;
+      const truncated = desc.scrollHeight > desc.clientHeight + 1;
+      if(truncated && !existingBtn){
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "desc-toggle";
+        btn.textContent = "Читать полностью";
+        btn.addEventListener("click", function(){
+          const expanded = desc.classList.toggle("expanded");
+          btn.textContent = expanded ? "Свернуть" : "Читать полностью";
+        });
+        desc.insertAdjacentElement("afterend", btn);
+      }else if(!truncated && existingBtn){
+        existingBtn.remove();
+      }
+    });
+  }
+
+  let descToggleTimer = null;
+  window.addEventListener("resize", function(){
+    clearTimeout(descToggleTimer);
+    descToggleTimer = setTimeout(setupDescToggles, 200);
+  });
+
   renderAll();
   renderPsych();
   updateCounter();
+  setupDescToggles();
 })();
 </script>
 
