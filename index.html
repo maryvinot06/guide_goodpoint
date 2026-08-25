@@ -180,7 +180,10 @@
   .card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
   .card-title{font-weight:700;font-size:.98rem;line-height:1.3;}
   .card-author{font-size:.78rem;color:var(--accent-warm-dark);font-weight:600;}
-  .card-desc{font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;}
+  .card-desc{
+    font-size:.84rem;line-height:1.45;color:var(--text-main);opacity:.85;flex:1;margin:0;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;
+  }
   .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;}
   .card-footer.no-link{justify-content:flex-end;}
   .source-link{
@@ -204,9 +207,12 @@
   .status-opt.active[data-status="planned"]{background:var(--accent-primary);}
   .status-opt.active[data-status="done"]{background:var(--accent-warm);}
   .status-legend{
-    max-width:900px;margin:24px auto 0;padding:0 20px;
-    text-align:center;font-size:.82rem;color:var(--text-soft);line-height:1.6;
+    max-width:640px;margin:24px auto 0;padding:0 20px;
+    text-align:center;
   }
+  .status-legend-title{margin:0 0 6px;font-size:1rem;font-weight:700;color:var(--text-main);}
+  .status-legend-desc{margin:0 0 10px;font-size:.85rem;color:var(--text-soft);line-height:1.5;}
+  .status-legend-items{margin:0;font-size:.82rem;color:var(--text-soft);}
   .status-legend .status-item{white-space:nowrap;}
 
   /* ---------- Psychologists ---------- */
@@ -251,6 +257,39 @@
   }
   .specialist-cta:hover{background:var(--accent-warm);color:var(--bg-main);}
 
+  /* ---------- Promo + Telegram ---------- */
+  .promo-section{max-width:var(--page-width);margin:0 auto;padding:0 20px;}
+  .promo-card{
+    background:var(--accent-warm);color:var(--bg-main);
+    border-radius:var(--radius-lg);
+    padding:24px 26px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between;
+  }
+  .promo-card p{margin:0;font-size:.95rem;line-height:1.55;flex:1;min-width:240px;}
+  .promo-code{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--bg-main);color:var(--accent-warm-dark);
+    border:2px dashed var(--bg-main);
+    border-radius:10px;
+    padding:4px 12px;
+    font-weight:800;letter-spacing:.06em;
+    font-size:.95rem;
+  }
+  .tg-section{max-width:var(--page-width);margin:24px auto 0;padding:0 20px;}
+  .tg-section h2{font-size:1.15rem;margin:0 0 6px;}
+  .tg-section .section-lead{margin:0 0 16px;}
+  .tg-section .section-lead a{color:var(--accent-warm-dark);font-weight:600;text-decoration:none;}
+  .tg-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .tg-list li{
+    background:var(--bg-main);border:1px solid var(--line);border-radius:var(--radius-sm);
+  }
+  .tg-list a{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 18px;text-decoration:none;color:var(--text-main);font-size:.9rem;font-weight:600;
+  }
+  .tg-list a::after{content:'→';color:var(--accent-warm-dark);flex-shrink:0;}
+  .tg-list a:hover{color:var(--accent-warm-dark);}
+
   footer{padding:34px 20px;text-align:center;font-size:.82rem;color:var(--text-soft);border-top:1px solid var(--line);}
   footer a{color:var(--accent-warm-dark);font-weight:600;text-decoration:none;}
   footer p{max-width:560px;margin:0 auto 10px;}
@@ -294,6 +333,11 @@
     <circle cx="12" cy="12" r="9"/>
     <path d="M14.8 9.2L13 13L9.2 14.8L11 11L14.8 9.2Z"/>
   </symbol>
+  <symbol id="icon-quiz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="4" width="14" height="17" rx="2"/>
+    <path d="M9 4V3.5A1.5 1.5 0 0 1 10.5 2H13.5A1.5 1.5 0 0 1 15 3.5V4"/>
+    <path d="M8.5 12.5L10.5 14.5L15.5 9.5"/>
+  </symbol>
 </svg>
 
 <header class="site-header">
@@ -317,6 +361,7 @@
         <button class="module-btn" data-target="podcasts"><svg class="icon"><use href="#icon-headphones"></use></svg> Подкасты</button>
         <button class="module-btn" data-target="films"><svg class="icon"><use href="#icon-clapper"></use></svg> Фильмы и сериалы</button>
         <button class="module-btn" data-target="practice"><svg class="icon"><use href="#icon-compass"></use></svg> Практика</button>
+        <button class="module-btn" data-target="tests"><svg class="icon"><use href="#icon-quiz"></use></svg> Тесты</button>
       </div>
     </div>
     <div class="progress-wrap">
@@ -326,7 +371,11 @@
   </div>
 </header>
 
-<p class="status-legend"><span class="status-item">⚪ не начато</span> · <span class="status-item">👁 в планах</span> · <span class="status-item">✅ пройдено</span> — нажмите на нужную иконку у карточки, чтобы отметить статус</p>
+<div class="status-legend">
+  <p class="status-legend-title">Отмечайте свой прогресс</p>
+  <p class="status-legend-desc">Нажмите на нужную иконку рядом с источником — так будет проще сохранить свой маршрут по гайду.</p>
+  <p class="status-legend-items"><span class="status-item">⚪️ Хочу изучить</span> · <span class="status-item">👁 В процессе</span> · <span class="status-item">✅ Готово</span></p>
+</div>
 
 <main>
   <section id="books" class="module-section">
@@ -366,6 +415,12 @@
     <p class="section-lead">Если готовы попробовать новое.</p>
     <div class="card-grid" data-group="practice"></div>
   </section>
+
+  <section id="tests" class="module-section hidden">
+    <h2><svg class="icon"><use href="#icon-quiz"></use></svg> Тесты</h2>
+    <p class="section-lead">Если хочется лучше понять себя через вопросы.</p>
+    <div class="card-grid" data-group="tests"></div>
+  </section>
 </main>
 
 <div class="controls-panel">
@@ -380,6 +435,24 @@
   <p class="psych-bridge">Люди по разным причинам могут сталкиваться с отсутствием желания, сложностями с оргазмом, чувством стыда, страхом близости или конфликтами с партнером. Это нормально. Но если это влияет на вашу жизнь, в безопасном пространстве вместе с проверенным специалистом можно разобраться в своем опыте и чувствовать больше удовлетворения в теме сексуальности.</p>
 
   <div class="psych-grid" id="psychGrid"></div>
+</section>
+
+<section class="promo-section">
+  <div class="promo-card">
+    <p>Если захочется разобраться с темой сексуальности или любой другой с поддержкой психолога — ловите промокод <span class="promo-code">GUIDE</span> на скидку на первую консультацию у любого специалиста Good Point.</p>
+  </div>
+</section>
+
+<section class="tg-section">
+  <h2>Ещё больше материалов от психологов Good Point</h2>
+  <p class="section-lead">Вы найдёте в нашем Telegram-канале <a href="https://t.me/good_point_21" target="_blank" rel="noopener">«Точка опоры»</a>:</p>
+  <ul class="tg-list">
+    <li><a href="https://t.me/good_point_21/1823" target="_blank" rel="noopener">Достаточно хороший секс в паре — какой он</a></li>
+    <li><a href="https://t.me/good_point_21/1727" target="_blank" rel="noopener">Как стать ближе с партнером с помощью ролевых игр</a></li>
+    <li><a href="https://t.me/good_point_21/2273" target="_blank" rel="noopener">Эфир про исследование сексуальности: в отношениях и без</a></li>
+    <li><a href="https://t.me/good_point_21/957" target="_blank" rel="noopener">Что происходит с сексом в длительных отношениях: эфир</a></li>
+    <li><a href="https://t.me/good_point_21/1706" target="_blank" rel="noopener">Как связаны психика и менструальный цикл</a></li>
+  </ul>
 </section>
 
 <footer>
@@ -399,11 +472,11 @@
     books: {
       physio: [
         {t:"Как хочет женщина", a:"Эмили Нагоски", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Как хочет женщина.jpg"},
-        {t:"Точка наслаждения", a:"Лори Минц", d:"О женском удовольствии, анатомии, оргазме и мифах, которые мешают получать удовольствие.", img:"Точка наслаждения.png"},
+        {t:"Точка наслаждения", a:"Лори Минц", d:"Конкретные пошаговые рекомендации, техники и советы по коммуникации с партнером, чтобы получать удовольствие и не стесняться этого.", img:"Точка наслаждения.png"},
         {t:"Секс", a:"Дарья Варламова, Елена Фоер", d:"Доказательный гид по сексуальности: физиология, психология, отношения и культурные мифы.", img:"Секс.jpg"},
-        {t:"Всё о ней", a:"Ольга Крумкач", d:"Современный разговор о женском теле, сексуальности и здоровье без стыда.", img:"Все о ней.jpg"},
-        {t:"Секс — это здорово", a:"Динара Березина", d:"Книга для тех, кто хочет спокойно и без табу разобраться в теме сексуальности.", img:"Секс - это здорово.jpg"},
-        {t:"Сексуальный интеллект", a:"Марти Кляйн", d:"Помогает отказаться от идеи «нормального секса» и строить сексуальную жизнь, которая подходит именно вам.", img:"Сексуальный интеллект.jpg"}
+        {t:"Всё о ней", a:"Ольга Крумкач", d:"Акушер-гинеколог Ольга Крумкач дает ответы на большинство вопросов о работе женского организма, показывая, как важен бережный и доверительный подход в медицине.", img:"Все о ней.jpg"},
+        {t:"Секс — это здорово", a:"Динара Березина", d:"Практикующий сексолог отвечает на вопросы, которые помогут женщине понять свое тело, его потребности и особенности: про оральный секс, мастурбацию, беременность, менструацию.", img:"Секс - это здорово.jpg"},
+        {t:"Сексуальный интеллект", a:"Марти Кляйн", d:"Узнаете, что такое сексуальный интеллект и как повысить его уровень. Автор развенчивает множество мифов про секс в длительных отношениях, чтобы перестать стремиться к недостижимому идеалу и начать получать удовольствие.", img:"Сексуальный интеллект.jpg"}
       ],
       relationships: [
         {t:"Чувство любви", a:"Сью Джонсон", d:"Как формируется эмоциональная близость и почему она влияет на сексуальную жизнь.", img:"Чувство любви.jpg"},
@@ -423,11 +496,10 @@
     },
     podcasts: [
       {t:"Истории русского секса", a:"", d:"Как менялось отношение к сексуальности в России через личные истории и исследования.", img:"Истории русского секса.jpg", url:"https://podcast.ru/1484494873"},
-      {t:"Раздвиньте ноги", a:"", d:"Разговоры о сексуальности, теле и отношениях без табу.", img:"Раздвиньте ноги.jpg", url:"https://podcast.ru/1546452454"},
-      {t:"Психички за 30", a:"", d:"О психологии, отношениях и жизни взрослых людей.", img:"Психички за 30.jpg", url:"https://podcast.ru/1745078368"},
-      {t:"Подкаст 69", a:"", d:"Про секс, коммуникацию и современную сексуальную культуру.", img:"Подкаст 69.jpg", url:"http://podcast.ru/1523549843"},
-      {t:"Никакого правильно", a:"", d:"О том, почему универсальных правил в отношениях и сексуальности не существует.", img:"Никакого правильно.jpg", url:"http://podcast.ru/1488479498"},
-      {t:"Справиться проще", a:"", d:"О психологическом благополучии, отношениях и эмоциональной жизни.", img:"Справиться проще.jpg", url:"https://podcast.ru/1592331113"}
+      {t:"Раздвиньте ноги", a:"", d:"Ольга Крумкач, врач акушер-гинеколог, рассказывает о женском здоровье, обсуждает «стыдные вопросы», делится опытом и разбирает сексуальные аспекты жизни. В том числе — про половое воспитание!", img:"Раздвиньте ноги.jpg", url:"https://podcast.ru/1546452454"},
+      {t:"Подкаст 69", a:"", d:"Ведущие разговаривают с сексологами, урологами, психологами, врачами и людьми с реальным опытом — о сексуальном здоровье, возбуждении, проблемах в отношениях, страхах, телесности, мужской и женской близости.", img:"Подкаст 69.jpg", url:"http://podcast.ru/1523549843"},
+      {t:"Никакого правильно", a:"", d:"Современный, местами комичный, и очень честный разговор о правах женщины в разных сферах, в том числе в сексе. Советуем эпизоды «Про секс в среднем возрасте», «Про стыд вокруг секса с Ариной Винтовкиной», «Про секс и что с ним стало».", img:"Никакого правильно.jpg", url:"http://podcast.ru/1488479498"},
+      {t:"Справиться проще", a:"", d:"Подкаст о ментальном здоровье, психологических состояниях и жизни с ними. Наши любимые выпуски: «Зачем нам секс?» и «Секс в долгих отношениях с Ольгой Василенко».", img:"Справиться проще.jpg", url:"https://podcast.ru/1592331113"}
     ],
     films: [
       {t:"Sex Education", a:"", d:"О взрослении, согласии, коммуникации, разнообразии сексуальности и отношениях.", img:"Sex education.jpg"},
@@ -438,6 +510,11 @@
     practice: [
       {t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
       {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"}
+    ],
+    tests: [
+      {t:"Индекс женской сексуальной функции (FSFI)", a:"", d:"Оценивает сексуальную функцию у женщин по 6 областям: влечение, возбуждение, лубрикация, оргазм, удовлетворённость и боль. Помогает увидеть, в какой области есть трудности, связанные с сексуальным здоровьем, и понять, какая поддержка может помочь.", img:"FSFI.jpg", url:"https://psytests.org/diag/fsfi-run.html"},
+      {t:"Опросник сексуального темперамента", a:"Эмили Нагоски", d:"Тест Эмили Нагоски анализирует сексуальный темперамент по модели двойного контроля, описывающей сексуальную реакцию как комбинацию двух систем: подавления и возбуждения.", img:"Опросник сексуального темперамента.jpg", url:"https://psytests.org/quiz/stq-run.html"},
+      {t:"Опросник сексуальной удовлетворенности Берг-Кросс", a:"", d:"Помогает парам проанализировать уровень удовлетворенности в различных областях и определить свою сексуальность.", img:"Берг-Кросс.jpg", url:"https://psytests.org/family/sxbc.html"}
     ]
   };
 
@@ -486,11 +563,17 @@
     culture: "📚 Книги — о культуре и социальных ожиданиях",
     podcasts: "🎧 Подкасты",
     films: "🎬 Фильмы и сериалы",
-    practice: "🧩 Практика"
+    practice: "🧩 Практика",
+    tests: "📝 Тесты"
+  };
+
+  const LINK_TEXT = {
+    podcasts: {label:"Слушать", aria:"Слушать подкаст"},
+    tests: {label:"Пройти тест", aria:"Пройти тест"}
   };
 
   const STATUS_ORDER = ["none","planned","done"];
-  const STATUS_LABEL = {none:"Не начато", planned:"В планах", done:"Пройдено"};
+  const STATUS_LABEL = {none:"Хочу изучить", planned:"В процессе", done:"Готово"};
   const STATUS_ICON = {none:"⚪", planned:"👁", done:"✅"};
 
   const STORAGE_KEY = "gp-sex-guide-status-v1";
@@ -512,7 +595,7 @@
     const status = state[item.id] || "none";
     const authorHtml = item.a ? '<div class="card-author">' + escapeHtml(item.a) + '</div>' : '';
     const linkHtml = item.showLink ?
-      '<a class="source-link" href="' + escapeHtml(item.url || "#") + '" target="_blank" rel="noopener" aria-label="Слушать подкаст">🔗 Слушать</a>' : '';
+      '<a class="source-link" href="' + escapeHtml(item.url || "#") + '" target="_blank" rel="noopener" aria-label="' + item.linkAria + '">🔗 ' + item.linkLabel + '</a>' : '';
     return (
       '<div class="card" data-id="' + item.id + '" data-status="' + status + '">' +
         '<div class="card-media' + (item.square ? ' square' : '') + '">' +
@@ -541,11 +624,17 @@
   function renderGroup(groupKey, items, sectionLabel){
     const container = document.querySelector('.card-grid[data-group="' + groupKey + '"]');
     if(!container) return;
+    const linkInfo = LINK_TEXT[groupKey];
     const isPodcasts = groupKey === "podcasts";
     let html = "";
     items.forEach(function(item, idx){
       const id = groupKey + "-" + idx;
-      const full = Object.assign({id: id, section: sectionLabel, showLink: isPodcasts, square: isPodcasts}, item);
+      const full = Object.assign({
+        id: id, section: sectionLabel, square: isPodcasts,
+        showLink: !!linkInfo,
+        linkLabel: linkInfo ? linkInfo.label : "",
+        linkAria: linkInfo ? linkInfo.aria : ""
+      }, item);
       ALL_ITEMS.push(full);
       html += cardHtml(full);
     });
@@ -559,6 +648,7 @@
     renderGroup("podcasts", DATA.podcasts, SECTION_LABELS.podcasts);
     renderGroup("films", DATA.films, SECTION_LABELS.films);
     renderGroup("practice", DATA.practice, SECTION_LABELS.practice);
+    renderGroup("tests", DATA.tests, SECTION_LABELS.tests);
   }
 
   function getInitials(name){
