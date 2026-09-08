@@ -84,6 +84,7 @@
   }
   @media (min-width:600px){
     .gpres__grid{grid-template-columns:repeat(2,1fr);}
+    .gpres__route{display:none;}
   }
   @media (min-width:900px){
     .gpres__grid{grid-template-columns:repeat(3,1fr);}
@@ -244,7 +245,29 @@
   "use strict";
   var body = document.getElementById("gpresBody");
   var svg = document.getElementById("gpresRoute");
-  if(!body || !svg) return;
+  if(!body) return;
+
+  /* Не даём коротким союзам/предлогам оставаться одни в конце строки —
+     подставляем неразрывный пробел после них. */
+  var SHORT_WORDS = ["а","и","в","о","у","я","до","за","из","ли","на","не","ни","но","об",
+    "от","по","со","то","бы","же","уж","из-за","из-под","для","при","что","как","или",
+    "про","под","над","без","чем","это","эти","эту","эта","тот","та","мы","вы","их"];
+  var NBSP_RE = new RegExp(
+    "(?<=^|[\\s\\u00A0—–(«\"'])(" + SHORT_WORDS.join("|") + ") ",
+    "giu"
+  );
+  function nbspify(text){
+    return text.replace(NBSP_RE, "$1\u00A0");
+  }
+  function applyNbsp(root){
+    var els = root.querySelectorAll(".gpres__title, .gpres-item__text");
+    els.forEach(function(el){
+      el.textContent = nbspify(el.textContent);
+    });
+  }
+  applyNbsp(document);
+
+  if(!svg) return;
 
   function draw(){
     var pins = Array.prototype.slice.call(body.querySelectorAll("[data-pin]"));
