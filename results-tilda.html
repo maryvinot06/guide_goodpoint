@@ -1,0 +1,301 @@
+<!-- ============================================================
+     «Ваши результаты после программы» — блок для Тильды
+     (вставить в HTML/код-блок T123). Правки текста — в разметке
+     ниже, каждый пункт помечен комментарием «ПУНКТ N».
+     Скругления, отступы и число колонок сетки настраиваются через
+     CSS-переменные в начале <style>.
+     ============================================================ -->
+<style>
+  .gpres{
+    --gpres-bg:      #FCF7E6;
+    --gpres-line:    rgba(66,66,65,.14);
+    --gpres-text:    #424241;
+    --gpres-text-soft: rgba(66,66,65,.6);
+    --gpres-light:   #ECE482;
+    --gpres-dark:    #96A164;
+    --gpres-radius:  20px;
+
+    font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--gpres-text);
+    max-width:1160px;
+    margin:0 auto;
+    padding:clamp(16px,4vw,20px);
+    box-sizing:border-box;
+  }
+  .gpres *{box-sizing:border-box;}
+
+  .gpres__shell{
+    border-radius:var(--gpres-radius);
+    overflow:hidden;
+    border:1px solid var(--gpres-line);
+  }
+
+  /* ---------- header ---------- */
+  .gpres__head{
+    position:relative;
+    background:var(--gpres-dark);
+    padding:clamp(22px,4vw,34px) clamp(20px,5vw,40px);
+    text-align:center;
+    background-image:repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.16) 0,
+      rgba(255,255,255,.16) 1px,
+      transparent 1px,
+      transparent 34px
+    );
+  }
+  .gpres__title{
+    margin:0;
+    color:#FFFFFF;
+    font-weight:800;
+    font-size:clamp(1.35rem,3.4vw,2rem);
+    letter-spacing:-.01em;
+    line-height:1.25;
+  }
+
+  /* ---------- body / grid ---------- */
+  .gpres__body{
+    position:relative;
+    background:var(--gpres-bg);
+    background-image:repeating-linear-gradient(
+      90deg,
+      rgba(66,66,65,.05) 0,
+      rgba(66,66,65,.05) 1px,
+      transparent 1px,
+      transparent 15.5%
+    );
+    padding:clamp(20px,4vw,36px) clamp(16px,4vw,34px) clamp(28px,5vw,44px);
+  }
+  .gpres__route{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+  }
+  .gpres__grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr;
+    column-gap:28px;
+    row-gap:30px;
+  }
+  @media (min-width:600px){
+    .gpres__grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (min-width:900px){
+    .gpres__grid{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (min-width:1180px){
+    .gpres__grid{grid-template-columns:repeat(4,1fr);}
+  }
+
+  .gpres-item{display:flex;flex-direction:column;gap:8px;}
+  .gpres-item__num-row{display:flex;align-items:center;gap:8px;}
+  .gpres-item__pin{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--gpres-bg);
+    border:2px solid var(--gpres-dark);
+    flex-shrink:0;
+  }
+  .gpres-item__num{
+    font-size:.82rem;font-weight:700;letter-spacing:.02em;
+    color:var(--gpres-text-soft);
+  }
+  .gpres-item__text{
+    margin:0;font-size:.98rem;line-height:1.5;color:var(--gpres-text);
+  }
+
+  @media (max-width:480px){
+    .gpres__title{font-size:1.25rem;}
+    .gpres__body{background-image:none;}
+    .gpres-item__text{font-size:.94rem;}
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<div class="gpres">
+  <div class="gpres__shell">
+
+    <div class="gpres__head">
+      <p class="gpres__title">Ваши результаты после программы</p>
+    </div>
+
+    <div class="gpres__body" id="gpresBody">
+      <svg class="gpres__route" id="gpresRoute" aria-hidden="true"></svg>
+
+      <div class="gpres__grid" id="gpresGrid">
+
+        <!-- ПУНКТ 1 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/01</span></div>
+          <p class="gpres-item__text">Чёткое понимание, что и как делать, чтобы дело приносило доход</p>
+        </div>
+
+        <!-- ПУНКТ 2 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/02</span></div>
+          <p class="gpres-item__text">Опора на себя, свои желания, свой темп</p>
+        </div>
+
+        <!-- ПУНКТ 3 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/03</span></div>
+          <p class="gpres-item__text">Навыки, которые позволяют превращать идею в действующий продукт</p>
+        </div>
+
+        <!-- ПУНКТ 4 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/04</span></div>
+          <p class="gpres-item__text">Внутренний контракт с собой: кто я, зачем, куда иду</p>
+        </div>
+
+        <!-- ПУНКТ 5 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/05</span></div>
+          <p class="gpres-item__text">Поддержка от сообщества, где можно быть собой</p>
+        </div>
+
+        <!-- ПУНКТ 6 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/06</span></div>
+          <p class="gpres-item__text">Готовая продуктовая линейка с понятными ценами и форматами</p>
+        </div>
+
+        <!-- ПУНКТ 7 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/07</span></div>
+          <p class="gpres-item__text">Оформленный блог, готовый к продажам</p>
+        </div>
+
+        <!-- ПУНКТ 8 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/08</span></div>
+          <p class="gpres-item__text">Рабочие инструменты продаж — как анонсировать, писать продающие сторис и карусели без стыда и давления</p>
+        </div>
+
+        <!-- ПУНКТ 9 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/09</span></div>
+          <p class="gpres-item__text">Финансовый план на цифрах: сколько, кому и по какой цене продавать</p>
+        </div>
+
+        <!-- ПУНКТ 10 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/10</span></div>
+          <p class="gpres-item__text">Способы продвигаться без большого бюджета — реклама у блогеров, коллаборации</p>
+        </div>
+
+        <!-- ПУНКТ 11 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/11</span></div>
+          <p class="gpres-item__text">И главное — право строить дело так, как подходит тебе, и при этом зарабатывать</p>
+        </div>
+
+        <!-- ПУНКТ 12 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/12</span></div>
+          <p class="gpres-item__text">Понятные инструкции: какие ИИ-инструменты использовать и как ими пользоваться</p>
+        </div>
+
+        <!-- ПУНКТ 13 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/13</span></div>
+          <p class="gpres-item__text">Список сервисов с пониманием, какой на них нужен бюджет</p>
+        </div>
+
+        <!-- ПУНКТ 14 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/14</span></div>
+          <p class="gpres-item__text">Полезные и эффективные промты для практики</p>
+        </div>
+
+        <!-- ПУНКТ 15 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/15</span></div>
+          <p class="gpres-item__text">Усиленная административная и маркетинговая часть дела с помощью ИИ</p>
+        </div>
+
+        <!-- ПУНКТ 16 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/16</span></div>
+          <p class="gpres-item__text">Устойчивость и опора, которые не дают плану превратиться в давление, тревогу и откат</p>
+        </div>
+
+        <!-- ПУНКТ 17 -->
+        <div class="gpres-item">
+          <div class="gpres-item__num-row"><span class="gpres-item__pin" data-pin></span><span class="gpres-item__num">/17</span></div>
+          <p class="gpres-item__text">Способность продолжать путь по-своему и в своём ритме — без выгорания и самосаботажа</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var body = document.getElementById("gpresBody");
+  var svg = document.getElementById("gpresRoute");
+  if(!body || !svg) return;
+
+  function draw(){
+    var pins = Array.prototype.slice.call(body.querySelectorAll("[data-pin]"));
+    if(!pins.length) return;
+    var bodyRect = body.getBoundingClientRect();
+    var w = bodyRect.width, h = bodyRect.height;
+    svg.setAttribute("width", w);
+    svg.setAttribute("height", h);
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+
+    var pts = pins.map(function(pin){
+      var r = pin.getBoundingClientRect();
+      return [r.left - bodyRect.left + r.width / 2, r.top - bodyRect.top + r.height / 2];
+    });
+
+    var d = "M" + pts[0][0] + "," + pts[0][1];
+    for(var i = 1; i < pts.length - 1; i++){
+      var xc = (pts[i][0] + pts[i + 1][0]) / 2;
+      var yc = (pts[i][1] + pts[i + 1][1]) / 2;
+      d += " Q" + pts[i][0] + "," + pts[i][1] + " " + xc + "," + yc;
+    }
+    if(pts.length > 1){
+      var last = pts[pts.length - 1];
+      d += " L" + last[0] + "," + last[1];
+    }
+
+    var dots = pts.map(function(p){
+      return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#96A164" opacity=".45"/>';
+    }).join("");
+
+    svg.innerHTML =
+      '<path d="' + d + '" fill="none" stroke="#96A164" stroke-width="1.5" ' +
+      'stroke-dasharray="1 9" stroke-linecap="round" opacity=".55"/>' + dots;
+  }
+
+  var raf;
+  function schedule(){
+    if(raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", schedule);
+  window.addEventListener("load", draw);
+  if(document.readyState === "complete" || document.readyState === "interactive"){
+    draw();
+  } else {
+    document.addEventListener("DOMContentLoaded", draw);
+  }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(draw); }
+  if(window.ResizeObserver){
+    try{ new ResizeObserver(schedule).observe(body); }catch(e){ /* ignore */ }
+  }
+})();
+</script>
