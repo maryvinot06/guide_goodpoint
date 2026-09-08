@@ -1,0 +1,296 @@
+<!-- ============================================================
+     Календарь встреч — блок для Тильды (вставить в HTML/код-блок T123)
+     Правки контента: даты и подписи — в разметке ниже,
+     помечено комментариями «ДАТА» / «АГЕНДА».
+     ============================================================ -->
+<style>
+  .gp-sched{
+    --gp-bg:      #FCF7E6;
+    --gp-line:    rgba(66,66,65,.16);
+    --gp-text:    #424241;
+    --gp-text-soft: rgba(66,66,65,.6);
+    --gp-muted:   rgba(66,66,65,.32);
+    --gp-light:   #ECE482;
+    --gp-dark:    #96A164;
+    --gp-light-text: #5B5A2C;
+    --gp-dark-text:  #FFFFFF;
+
+    font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--gp-text);
+    background:var(--gp-bg);
+    max-width:1120px;
+    margin:0 auto;
+    padding:36px 20px 44px;
+    box-sizing:border-box;
+  }
+  .gp-sched *{box-sizing:border-box;}
+  .gp-sched summary{list-style:none;cursor:pointer;}
+  .gp-sched summary::-webkit-details-marker{display:none;}
+
+  .gp-sched__head{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+    padding-bottom:18px;
+  }
+  .gp-sched__title{
+    font-size:1.6rem;font-weight:800;margin:0 0 8px;letter-spacing:-.01em;
+  }
+  .gp-sched__note{
+    font-size:.88rem;font-style:italic;color:var(--gp-text-soft);margin:0;max-width:640px;
+  }
+  .gp-sched__toggle{
+    flex-shrink:0;width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--gp-line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;line-height:1;color:var(--gp-text);
+    background:transparent;
+  }
+  .gp-sched__toggle::before{content:'\2212';}
+  .gp-sched:not([open]) .gp-sched__toggle::before{content:'+';}
+
+  .gp-sched__panel-title{
+    border:1px solid var(--gp-line);
+    padding:16px 22px;
+    font-weight:800;
+    font-size:1.02rem;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    margin:0 0 20px;
+  }
+
+  /* ---------- month grids ---------- */
+  .gp-months{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+    margin-bottom:28px;
+  }
+  .gp-month{border:1px solid var(--gp-line);}
+  .gp-month__label{
+    font-size:1.15rem;font-weight:800;letter-spacing:.02em;
+    padding:18px 20px 14px;
+  }
+  .gp-month__grid{
+    display:grid;grid-template-columns:repeat(7,1fr);
+  }
+  .gp-month__grid > div{
+    border-top:1px solid var(--gp-line);
+    border-left:1px solid var(--gp-line);
+    padding:12px 6px;
+    text-align:center;
+    font-size:.92rem;
+  }
+  .gp-month__grid > div:nth-child(7n+1){border-left:none;}
+  .gp-wd{
+    font-size:.72rem;font-weight:700;letter-spacing:.03em;
+    color:var(--gp-text-soft);padding:10px 4px !important;
+  }
+  .gp-day{font-weight:600;}
+  .gp-day.is-muted{color:var(--gp-muted);font-weight:500;}
+  .gp-day.is-main{background:var(--gp-dark);color:var(--gp-dark-text);font-weight:800;}
+  .gp-day.is-light{background:var(--gp-light);color:var(--gp-light-text);font-weight:800;}
+  .gp-day.is-tbd{
+    box-shadow:inset 0 0 0 1.5px var(--gp-dark);
+    color:var(--gp-dark-text-alt,var(--gp-text));
+    font-weight:700;
+  }
+
+  /* ---------- legend ---------- */
+  .gp-legend{
+    display:flex;flex-wrap:wrap;gap:10px 26px;
+    padding:16px 2px 22px;
+    border-bottom:1px solid var(--gp-line);
+    margin-bottom:26px;
+    font-size:.86rem;color:var(--gp-text-soft);
+  }
+  .gp-legend__item{display:flex;align-items:center;gap:8px;}
+  .gp-swatch{width:14px;height:14px;border-radius:4px;flex-shrink:0;}
+  .gp-swatch.main{background:var(--gp-dark);}
+  .gp-swatch.light{background:var(--gp-light);}
+  .gp-swatch.tbd{box-shadow:inset 0 0 0 1.5px var(--gp-dark);background:transparent;}
+
+  /* ---------- agenda ---------- */
+  .gp-agenda__month{
+    font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--gp-text-soft);margin:22px 0 10px;
+  }
+  .gp-agenda__month:first-child{margin-top:0;}
+  .gp-agenda__row{
+    display:flex;gap:14px;align-items:flex-start;
+    padding:11px 2px;
+    border-top:1px solid var(--gp-line);
+  }
+  .gp-agenda__dot{
+    width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:5px;
+  }
+  .gp-agenda__dot.main{background:var(--gp-dark);}
+  .gp-agenda__dot.light{background:var(--gp-light);}
+  .gp-agenda__dot.tbd{box-shadow:inset 0 0 0 1.5px var(--gp-dark);}
+  .gp-agenda__date{
+    flex-shrink:0;width:108px;font-weight:700;font-size:.88rem;
+  }
+  .gp-agenda__body{flex:1;font-size:.92rem;line-height:1.45;}
+  .gp-agenda__time{color:var(--gp-text-soft);font-size:.84rem;display:block;margin-top:1px;}
+
+  .gp-footnotes{margin-top:26px;padding-top:18px;border-top:1px solid var(--gp-line);}
+  .gp-footnotes p{margin:0 0 8px;font-size:.88rem;color:var(--gp-text-soft);}
+  .gp-footnotes p:last-child{margin-bottom:0;}
+
+  @media (max-width:560px){
+    .gp-sched__title{font-size:1.3rem;}
+    .gp-agenda__row{flex-direction:column;gap:2px;}
+    .gp-agenda__date{width:auto;}
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<details class="gp-sched" open>
+  <summary class="gp-sched__head">
+    <div>
+      <p class="gp-sched__title">Календарь встреч</p>
+      <p class="gp-sched__note">Даты и время встреч уже согласованы, кроме групп разделения опыта и мастермайндов — их расписание объявим дополнительно.</p>
+    </div>
+    <span class="gp-sched__toggle" aria-hidden="true"></span>
+  </summary>
+
+  <div class="gp-sched__panel-title">Расписание программы</div>
+
+  <!-- ================= МЕСЯЦЫ ================= -->
+  <div class="gp-months">
+
+    <!-- ДАТА: октябрь 2026 -->
+    <div class="gp-month">
+      <div class="gp-month__label">Октябрь 2026</div>
+      <div class="gp-month__grid">
+        <div class="gp-wd">ПН</div><div class="gp-wd">ВТ</div><div class="gp-wd">СР</div><div class="gp-wd">ЧТ</div><div class="gp-wd">ПТ</div><div class="gp-wd">СБ</div><div class="gp-wd">ВС</div>
+
+        <div class="gp-day is-muted">28</div><div class="gp-day is-muted">29</div><div class="gp-day is-muted">30</div>
+        <div class="gp-day">1</div><div class="gp-day">2</div><div class="gp-day">3</div><div class="gp-day">4</div>
+
+        <div class="gp-day">5</div><div class="gp-day">6</div><div class="gp-day">7</div><div class="gp-day">8</div><div class="gp-day">9</div><div class="gp-day">10</div><div class="gp-day">11</div>
+
+        <div class="gp-day is-main">12</div><div class="gp-day is-light">13</div><div class="gp-day">14</div><div class="gp-day">15</div><div class="gp-day">16</div><div class="gp-day">17</div><div class="gp-day">18</div>
+
+        <div class="gp-day">19</div><div class="gp-day is-light">20</div><div class="gp-day">21</div><div class="gp-day is-light">22</div><div class="gp-day">23</div><div class="gp-day">24</div><div class="gp-day">25</div>
+
+        <div class="gp-day is-tbd">26</div><div class="gp-day is-tbd">27</div><div class="gp-day is-tbd">28</div><div class="gp-day is-tbd">29</div><div class="gp-day is-tbd">30</div>
+        <div class="gp-day">31</div><div class="gp-day is-muted">1</div>
+      </div>
+    </div>
+
+    <!-- ДАТА: ноябрь 2026 -->
+    <div class="gp-month">
+      <div class="gp-month__label">Ноябрь 2026</div>
+      <div class="gp-month__grid">
+        <div class="gp-wd">ПН</div><div class="gp-wd">ВТ</div><div class="gp-wd">СР</div><div class="gp-wd">ЧТ</div><div class="gp-wd">ПТ</div><div class="gp-wd">СБ</div><div class="gp-wd">ВС</div>
+
+        <div class="gp-day is-muted">26</div><div class="gp-day is-muted">27</div><div class="gp-day is-muted">28</div><div class="gp-day is-muted">29</div><div class="gp-day is-muted">30</div><div class="gp-day is-muted">31</div><div class="gp-day">1</div>
+
+        <div class="gp-day">2</div><div class="gp-day is-light">3</div><div class="gp-day">4</div><div class="gp-day">5</div><div class="gp-day">6</div><div class="gp-day">7</div><div class="gp-day">8</div>
+
+        <div class="gp-day is-light">9</div><div class="gp-day">10</div><div class="gp-day">11</div><div class="gp-day">12</div><div class="gp-day">13</div><div class="gp-day">14</div><div class="gp-day">15</div>
+
+        <div class="gp-day is-tbd">16</div><div class="gp-day is-tbd">17</div><div class="gp-day is-tbd">18</div><div class="gp-day is-main">19</div><div class="gp-day is-tbd">20</div><div class="gp-day">21</div><div class="gp-day">22</div>
+
+        <div class="gp-day is-light">23</div><div class="gp-day">24</div><div class="gp-day">25</div><div class="gp-day is-main">26</div><div class="gp-day">27</div><div class="gp-day">28</div><div class="gp-day">29</div>
+
+        <div class="gp-day">30</div><div class="gp-day is-muted">1</div><div class="gp-day is-muted">2</div><div class="gp-day is-muted">3</div><div class="gp-day is-muted">4</div><div class="gp-day is-muted">5</div><div class="gp-day is-muted">6</div>
+      </div>
+    </div>
+
+    <!-- ДАТА: декабрь 2026 (только завершающая встреча) -->
+    <div class="gp-month">
+      <div class="gp-month__label">Декабрь 2026</div>
+      <div class="gp-month__grid">
+        <div class="gp-wd">ПН</div><div class="gp-wd">ВТ</div><div class="gp-wd">СР</div><div class="gp-wd">ЧТ</div><div class="gp-wd">ПТ</div><div class="gp-wd">СБ</div><div class="gp-wd">ВС</div>
+
+        <div class="gp-day is-muted">30</div><div class="gp-day">1</div><div class="gp-day">2</div><div class="gp-day">3</div><div class="gp-day is-main">4</div><div class="gp-day is-tbd">5</div><div class="gp-day">6</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= ЛЕГЕНДА ================= -->
+  <div class="gp-legend">
+    <span class="gp-legend__item"><span class="gp-swatch main"></span>основные встречи / встречи с экспертом</span>
+    <span class="gp-legend__item"><span class="gp-swatch light"></span>коворкинг / вопрос-ответ</span>
+    <span class="gp-legend__item"><span class="gp-swatch tbd"></span>групповая работа — дата уточняется</span>
+  </div>
+
+  <!-- ================= АГЕНДА ================= -->
+  <div class="gp-agenda">
+
+    <div class="gp-agenda__month">Октябрь</div>
+
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot main"></span>
+      <span class="gp-agenda__date">Пн, 12.10</span>
+      <span class="gp-agenda__body">Приветственная встреча<span class="gp-agenda__time">19:00 мск · 18:00 Белград</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot light"></span>
+      <span class="gp-agenda__date">Вт, 20.10</span>
+      <span class="gp-agenda__body">Онлайн-коворкинг<span class="gp-agenda__time">12:00 мск</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot light"></span>
+      <span class="gp-agenda__date">Чт, 22.10</span>
+      <span class="gp-agenda__body">Вопрос-ответ с Виталиной<span class="gp-agenda__time">12:00 мск · 11:00 Белград</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot tbd"></span>
+      <span class="gp-agenda__date">26.10–30.10</span>
+      <span class="gp-agenda__body">Группы разделения опыта<span class="gp-agenda__time">время и даты пока не согласованы</span></span>
+    </div>
+
+    <div class="gp-agenda__month">Ноябрь</div>
+
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot light"></span>
+      <span class="gp-agenda__date">Вт, 03.11</span>
+      <span class="gp-agenda__body">Онлайн-коворкинг<span class="gp-agenda__time">19:00 мск</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot light"></span>
+      <span class="gp-agenda__date">Пн, 09.11</span>
+      <span class="gp-agenda__body">Вопрос-ответ с Виталиной<span class="gp-agenda__time">19:00 мск · 17:00 Белград</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot tbd"></span>
+      <span class="gp-agenda__date">16.11–20.11</span>
+      <span class="gp-agenda__body">Мастермайнды<span class="gp-agenda__time">время и даты пока не согласованы</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot main"></span>
+      <span class="gp-agenda__date">Чт, 19.11</span>
+      <span class="gp-agenda__body">Встреча с экспертом: Саша Колькина<span class="gp-agenda__time">19:00 мск</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot light"></span>
+      <span class="gp-agenda__date">Пн, 23.11</span>
+      <span class="gp-agenda__body">Онлайн-коворкинг<span class="gp-agenda__time">12:00 мск</span></span>
+    </div>
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot main"></span>
+      <span class="gp-agenda__date">Чт, 26.11</span>
+      <span class="gp-agenda__body">Встреча с экспертом: Саша Колькина<span class="gp-agenda__time">19:00 мск</span></span>
+    </div>
+
+    <div class="gp-agenda__month">Декабрь</div>
+
+    <div class="gp-agenda__row">
+      <span class="gp-agenda__dot main"></span>
+      <span class="gp-agenda__date">Пт, 04.12</span>
+      <span class="gp-agenda__body">Завершающая встреча<span class="gp-agenda__time">19:00 мск · 17:00 Белград — при необходимости переносим на сб 05.12</span></span>
+    </div>
+
+  </div>
+
+  <div class="gp-footnotes">
+    <p>Встречи проходят вечером по Москве — точное время для новых дат объявим дополнительно.</p>
+    <p>Встречи в мини-группе: время согласовывается дополнительно с группой.</p>
+  </div>
+
+</details>
