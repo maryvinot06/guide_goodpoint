@@ -457,7 +457,8 @@
     ],
     practice: [
       {t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
-      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"}
+      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"},
+      {t:"Практика: исследуем тело через движение", a:"WowFit", d:"7 мягких упражнений для расслабления тазового дна, телесной чувствительности и большего комфорта в интимной жизни", img:"Практика_исследуем тело через движение.jpg", url:"https://wowfit.ru/blog/kak-pochuvstvovat-telo", showLink:true, linkLabel:"Читать", linkAria:"Читать статью"}
     ]
   };
 
@@ -532,7 +533,7 @@
     const status = state[item.id] || "none";
     const authorHtml = item.a ? '<div class="card-author">' + escapeHtml(item.a) + '</div>' : '';
     const linkHtml = item.showLink ?
-      '<a class="source-link" href="' + escapeHtml(item.url || "#") + '" target="_blank" rel="noopener" aria-label="Слушать подкаст">🔗 Слушать</a>' : '';
+      '<a class="source-link" href="' + escapeHtml(item.url || "#") + '" target="_blank" rel="noopener" aria-label="' + escapeHtml(item.linkAria || "Слушать подкаст") + '">🔗 ' + escapeHtml(item.linkLabel || "Слушать") + '</a>' : '';
     return (
       '<div class="card" data-id="' + item.id + '" data-status="' + status + '">' +
         '<div class="card-media' + (item.square ? ' square' : '') + '">' +
