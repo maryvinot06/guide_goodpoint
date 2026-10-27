@@ -394,9 +394,9 @@
       <p>Пусть этот гид станет ориентиром, который поможет найти надежные источники знаний. А дальше — самое интересное: исследовать свою сексуальность в реальной жизни, с любопытством и бережностью.</p>
       <div class="module-nav" id="moduleNav">
         <button class="module-btn active" data-target="books"><svg class="icon"><use href="#icon-book"></use></svg> Книги</button>
+        <button class="module-btn active" data-target="practice"><svg class="icon"><use href="#icon-compass"></use></svg> Практика</button>
         <button class="module-btn active" data-target="podcasts"><svg class="icon"><use href="#icon-headphones"></use></svg> Подкасты</button>
         <button class="module-btn active" data-target="films"><svg class="icon"><use href="#icon-clapper"></use></svg> Фильмы и сериалы</button>
-        <button class="module-btn active" data-target="practice"><svg class="icon"><use href="#icon-compass"></use></svg> Практика</button>
         <button class="module-btn active" data-target="tests"><svg class="icon"><use href="#icon-quiz"></use></svg> Тесты</button>
       </div>
     </div>
@@ -418,7 +418,7 @@
     <h2><svg class="icon"><use href="#icon-book"></use></svg> Книги</h2>
     <p class="section-lead">Если хочется разобраться глубже.</p>
 
-    <details class="subcategory">
+    <details class="subcategory" open>
       <summary>О физиологии</summary>
       <div class="card-grid" data-group="physio"></div>
     </details>
@@ -434,6 +434,12 @@
     </details>
   </section>
 
+  <section id="practice" class="module-section">
+    <h2><svg class="icon"><use href="#icon-compass"></use></svg> Практика</h2>
+    <p class="section-lead">Если готовы попробовать новое.</p>
+    <div class="card-grid" data-group="practice"></div>
+  </section>
+
   <section id="podcasts" class="module-section">
     <h2><svg class="icon"><use href="#icon-headphones"></use></svg> Подкасты</h2>
     <p class="section-lead">Если удобнее слушать по дороге или на прогулке.</p>
@@ -444,12 +450,6 @@
     <h2><svg class="icon"><use href="#icon-clapper"></use></svg> Фильмы и сериалы</h2>
     <p class="section-lead">Если лучше воспринимается через истории.</p>
     <div class="card-grid" data-group="films"></div>
-  </section>
-
-  <section id="practice" class="module-section">
-    <h2><svg class="icon"><use href="#icon-compass"></use></svg> Практика</h2>
-    <p class="section-lead">Если готовы попробовать новое.</p>
-    <div class="card-grid" data-group="practice"></div>
   </section>
 
   <section id="tests" class="module-section">
@@ -544,9 +544,9 @@
       {t:"Умираю как хочу секса", a:"", d:"История женщины, которая заново исследует свою сексуальность после тяжелого диагноза. О свободе, желании и поиске себя.", img:"Dying_for_Sex.jpg"}
     ],
     practice: [
-      {t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
-      {t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"},
-      {t:"Практика: исследуем тело через движение", a:"WowFit", d:"7 мягких упражнений для расслабления тазового дна, телесной чувствительности и большего комфорта в интимной жизни", img:"Практика_исследуем тело через движение.jpg", url:"https://wowfit.ru/blog/kak-pochuvstvovat-telo", showLink:true, linkLabel:"Читать", linkAria:"Читать статью"}
+      {id:"practice-2", t:"Практика: исследуем тело через движение", a:"WowFit", d:"7 мягких упражнений для расслабления тазового дна, телесной чувствительности и большего комфорта в интимной жизни", img:"Практика_исследуем тело через движение.jpg", url:"https://wowfit.ru/blog/kak-pochuvstvovat-telo", showLink:true, linkLabel:"Читать", linkAria:"Читать статью"},
+      {id:"practice-0", t:"Сексуальные фантазии", a:"PurPur", d:"Карточная игра, которая помогает безопасно говорить о желаниях, границах и фантазиях с партнером.", img:"PurPur.jpg"},
+      {id:"practice-1", t:"Учебник Т—Ж", a:"", d:"Большой бесплатный курс по сексуальному здоровью.", img:"учебник т-ж.png"}
     ],
     tests: [
       {t:"Индекс женской сексуальной функции (FSFI)", a:"", d:"Оценивает сексуальную функцию у женщин по 6 областям: влечение, возбуждение, лубрикация, оргазм, удовлетворённость и боль. Помогает увидеть, в какой области есть трудности, связанные с сексуальным здоровьем, и понять, какая поддержка может помочь.", img:"Индекс женской сексуальной функции.jpg", url:"https://psytests.org/diag/fsfi-run.html"},
