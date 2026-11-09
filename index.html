@@ -333,6 +333,32 @@
   @media (min-width:760px){
     .intro-text h2{white-space:nowrap;}
   }
+
+  /* ---------- Course banner (Practice) ---------- */
+  .course-banner{
+    --course-bg:#C77F83;
+    margin-top:22px;background:var(--course-bg);color:#fff;
+    border-radius:var(--radius-lg);padding:32px 32px 28px;box-shadow:var(--shadow);
+  }
+  .course-eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.2);padding:5px 12px;border-radius:999px;margin-bottom:14px;}
+  .course-banner h3{font-size:clamp(1.35rem,2.6vw,1.8rem);font-weight:800;line-height:1.15;margin:0 0 12px;text-wrap:balance;}
+  .course-lead{font-size:1.02rem;font-weight:500;line-height:1.55;margin:0 0 10px;max-width:760px;}
+  .course-lead strong{font-weight:800;}
+  .course-program{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0 18px;padding:0;list-style:none;}
+  .course-program li{background:var(--bg-main);color:var(--text-main);border-radius:var(--radius-md);padding:16px;font-size:.9rem;line-height:1.5;}
+  .course-program b{display:block;font-size:.98rem;margin-bottom:4px;color:#8E4A50;}
+  .course-note{font-size:.95rem;font-weight:500;margin:0 0 20px;}
+  .course-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;}
+  .course-cta{display:inline-flex;align-items:center;gap:8px;background:var(--bg-main);color:var(--text-main);font-weight:700;text-decoration:none;padding:13px 22px;border-radius:999px;transition:transform .15s ease;}
+  .course-cta:hover{transform:translateY(-1px);}
+  .course-promo{font-size:.92rem;font-weight:500;}
+  .course-banner .promo-code{background:transparent;color:#fff;border-color:rgba(255,255,255,.75);}
+  .course-banner .promo-code:hover{background:#fff;color:#8E4A50;border-color:#fff;}
+  @media (max-width:760px){
+    .course-banner{padding:24px 18px 22px;}
+    .course-program{grid-template-columns:1fr;}
+    .course-cta{width:100%;justify-content:center;}
+  }
 </style>
 </head>
 <body>
@@ -438,6 +464,23 @@
     <h2><svg class="icon"><use href="#icon-compass"></use></svg> Практика</h2>
     <p class="section-lead">Если готовы попробовать новое.</p>
     <div class="card-grid" data-group="practice"></div>
+
+    <aside class="course-banner" aria-labelledby="courseTitle">
+      <span class="course-eyebrow">Курс Good Point · старт 16 ноября</span>
+      <h3 id="courseTitle">Хотите исследовать свою сексуальность глубже?</h3>
+      <p class="course-lead">Для этого мы в Good Point придумали курс <strong>«Как хочет женщина?»</strong> — трёхнедельное исследование женской сексуальности вместе с психологами.</p>
+      <p class="course-lead">Это не курс о том, как стать более раскрепощённой, научиться хотеть чаще или соответствовать чьим-то представлениям о сексуальной женщине. Это пространство, где можно с любопытством и без стыда познакомиться с собой.</p>
+      <ul class="course-program">
+        <li><b>Встречи с психологами</b>Будем разбираться, как формируется сексуальность, откуда берётся желание, что влияет на возбуждение и удовольствие.</li>
+        <li><b>Киноклуб</b>Посмотрим на сексуальность через истории героев фильмов и сериалов, обсудим знакомые и неочевидные сценарии близости.</li>
+        <li><b>Индивидуальные практики</b>Попробуем лучше замечать свои ощущения, желания и установки. Делать их можно самостоятельно, делиться результатами ни с кем не нужно.</li>
+      </ul>
+      <p class="course-note">Можно участвовать с выключенной камерой, не рассказывать личное и просто слушать. Старт 16 ноября, но встречи будут доступны и в записи.</p>
+      <div class="course-actions">
+        <a class="course-cta" href="https://good-point.ru/female_sexuality?utm_source=telegram&amp;utm_medium=post&amp;utm_campaign=sexual&amp;utm_term=kurs" target="_blank" rel="noopener">Узнать о курсе и присоединиться →</a>
+        <span class="course-promo">Промокод <button type="button" class="promo-code" id="coursePromoBtn">GUIDE <span class="copy-hint">📋</span></button> даст скидку</span>
+      </div>
+    </aside>
   </section>
 
   <section id="podcasts" class="module-section">
@@ -783,6 +826,10 @@
 
   /* ---- Promo code ---- */
   document.getElementById("promoCodeBtn").addEventListener("click", function(){
+    copyToClipboard("GUIDE", "Промокод GUIDE скопирован");
+  });
+
+  document.getElementById("coursePromoBtn").addEventListener("click", function(){
     copyToClipboard("GUIDE", "Промокод GUIDE скопирован");
   });
 
